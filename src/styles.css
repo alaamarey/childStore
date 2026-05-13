@@ -1,1 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
+/* Global Kids Store Theme */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', 'Comic Neue', sans-serif;
+    background: linear-gradient(135deg, #ffe6f0 0%, #fff0e6 100%);
+    color: #333;
+}
+
+/* Custom Scrollbar for Kids Theme */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffe0e0;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff9a9e 100%);
+}
+
+/* Cute Button Styles */
+.cute-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Comic Neue', cursive;
+}
+
+.cute-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Loading Spinner for Kids */
+.loading-spinner {
+    text-align: center;
+    padding: 50px;
+    font-size: 2rem;
+}
+
+.loading-spinner::after {
+    content: "🧸";
+    animation: bounce 1s infinite;
+}

@@ -1,0 +1,153 @@
+<div class="kids-store-container">
+    <!-- Hero Banner for Kids Brand -->
+    <div class="hero-banner" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="hero-content">
+            <h1>🌸 TinyTrends Kids Fashion 🌸</h1>
+            <p>Stylish & Comfortable Clothing for Your Little Ones</p>
+            <div class="discount-badge">✨ Up to 50% OFF Summer Collection ✨</div>
+            <button class="shop-now-btn">Shop Now →</button>
+        </div>
+        <div class="hero-characters">
+            🧸 🎈 🦄 🐼
+        </div>
+    </div>
+
+    <!-- Quick Age Navigation -->
+    <div class="age-navigation">
+        <button *ngFor="let age of ageRanges" (click)="selectedAgeRange = age; applyAllFilters()"
+            [class.active]="selectedAgeRange === age">
+            {{age}}
+        </button>
+    </div>
+
+    <div class="product-layout">
+        <!-- Sidebar Filters -->
+        <div class="filters-sidebar">
+            <div class="filter-header">
+                <h3>🎀 Filter Products</h3>
+                <button class="reset-btn" (click)="resetFilters()">Reset All</button>
+            </div>
+
+            <div class="filter-group">
+                <label>🔍 Search</label>
+                <input type="text" [(ngModel)]="searchQuery" (input)="applyAllFilters()"
+                    placeholder="Search cute clothes...">
+            </div>
+
+            <div class="filter-group">
+                <label>👕 Category</label>
+                <select [(ngModel)]="selectedCategory" (change)="applyAllFilters()">
+                    <option value="">All Categories</option>
+                    <option *ngFor="let cat of categories" [value]="cat.value">{{cat.label}}</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>📏 Age Range</label>
+                <div class="age-buttons">
+                    <button *ngFor="let age of ageRanges" (click)="selectedAgeRange = age; applyAllFilters()"
+                        [class.active]="selectedAgeRange === age" class="age-btn">
+                        {{age}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>☀️ Season</label>
+                <div class="season-icons">
+                    <button *ngFor="let season of seasons" (click)="selectedSeason = season; applyAllFilters()"
+                        [class.active]="selectedSeason === season">
+                        {{season === 'summer' ? '🏖️' : season === 'winter' ? '❄️' : season === 'spring' ? '🌸' : '🍂'}}
+                        {{season}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>🎉 Occasion</label>
+                <div class="occasion-tags">
+                    <span *ngFor="let occasion of occasions" (click)="selectedOccasion = occasion; applyAllFilters()"
+                        [class.active]="selectedOccasion === occasion">
+                        {{occasion}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>🎨 Color</label>
+                <div class="color-palette">
+                    <div *ngFor="let color of colors" class="color-option" [style.backgroundColor]="color.toLowerCase()"
+                        [class.active]="selectedColor === color" (click)="selectedColor = color; applyAllFilters()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>💰 Price Range: ${{priceRange.min}} - ${{priceRange.max}}</label>
+                <input type="range" [(ngModel)]="priceRange.max" (input)="applyAllFilters()" min="0" max="100" step="5">
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-area">
+            <div class="products-header">
+                <div class="results-count">{{filteredProducts.length}} cute items found</div>
+                <div class="sort-dropdown">
+                    <label>Sort by:</label>
+                    <select [(ngModel)]="sortBy" (change)="applyAllFilters()">
+                        <option value="newest">Newest First</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Best Rating</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                <div *ngFor="let product of filteredProducts" class="product-card">
+                    <div class="product-badge" *ngIf="product.discount > 0">
+                        🔥 {{product.discount}}% OFF
+                    </div>
+                    <div class="product-badge featured" *ngIf="product.isFeatured">
+                        ⭐ Featured
+                    </div>
+
+                    <img [src]="product.images[0]" [alt]="product.name" class="product-image">
+
+                    <div class="product-info">
+                        <h3>{{product.name}}</h3>
+                        <!-- <div class="category-tag">{{getCategoryIcon(product.category)}} {{product.category}}</div> -->
+                        <div class="age-tag">👶 {{product.ageRange}}</div>
+
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-value">{{product.averageRating}}/5</span>
+                            <span class="reviews">({{product.ratings.length}} reviews)</span>
+                        </div>
+
+                        <div class="price-section">
+                            <span class="original-price" *ngIf="product.discount > 0">${{product.price}}</span>
+                            <span class="current-price">${{getDiscountedPrice(product)}}</span>
+                        </div>
+
+                        <div class="color-options">
+                            <span>Colors:</span>
+                            <div *ngFor="let color of product.color.slice(0,4)" class="mini-color"
+                                [style.backgroundColor]="color.toLowerCase()"></div>
+                        </div>
+
+                        <div class="size-options">
+                            <span>Sizes:</span>
+                            <button *ngFor="let size of product.size" class="size-btn"> {{size}} </button>
+                        </div>
+
+                        <!-- <button class="add-to-cart-btn" (click)="addToCart(product, product.size[0], product.color[0])">
+                            🛒 Add to Cart
+                        </button>
+                        <button class="wishlist-btn" (click)="addToWishlist(product)">❤️</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
