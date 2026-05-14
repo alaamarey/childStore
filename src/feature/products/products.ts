@@ -1,66 +1,97 @@
-// products.component.ts
-import { Component, inject, OnInit } from '@angular/core';
-import { ProductService } from '../../core/services/products';
-import { IProduct } from '../../core/models/iproduct';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Product } from '../../core/models/iproduct';
+import { ProductService } from '../../core/services/ProductService';
 
-// interface Product {
-//   id: number;
-//   title: string;
-//   price: number;
-//   description: string;
-//   image: string;
-//   stock: number;
-//   rate: number;
-//   ratingCount: number;
-//   categoryId: number;
-//   category: null;
-//   cartItems: null;
-// }
 
 @Component({
-  selector: 'app-products',
+  selector: 'app-product',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './products.html',
-  styleUrls: ['./products.css']
+  styleUrl: './products.css'
 })
-export class Products implements OnInit {
-  private readonly productService = inject(ProductService);
+export class ProductComponent implements OnInit {
 
-  products: IProduct[] = [];
-  loading: boolean = true;
-  error: string | null = null;
+  private productService = inject(ProductService);
+
+  products: Product[] = [];
+
+  totalCount: number = 0;
+
+  page: number = 1;
+  pageSize: number = 10;
+
+  search: string = '';
+
+  minPrice?: number;
+  maxPrice?: number;
+
+  totalPages: number = 0;
 
   ngOnInit(): void {
     this.getProducts();
   }
 
-  getProducts(): void {
-    this.loading = true;
-    this.error = null;
+  getProducts() {
 
-    this.productService.getAllProducts().subscribe({
-      next: (products: IProduct[]) => {
-        this.products = products;
-        this.loading = false;
+    this.productService.getProducts(
+      this.page,
+      this.pageSize,
+      this.search,
+      this.minPrice,
+      this.maxPrice
+    ).subscribe({
+
+      next: (response) => {
+
+        this.products = response.data;
+
+        this.totalCount = response.totalCount;
+
+        this.page = response.page;
+
+        this.pageSize = response.pageSize;
+
+        this.totalPages = Math.ceil(
+          this.totalCount / this.pageSize
+        );
       },
+
       error: (err) => {
-        console.error('Error fetching products:', err);
-        this.error = 'Failed to load products. Please try again later.';
-        this.loading = false;
+        console.log(err);
       }
+
     });
+
   }
 
-  addToCart(productId: number, productName: string): void {
-    alert(`${productName} has been added to your cart!`);
-    // Here you would typically dispatch an action or call a cart service
+  nextPage() {
+
+    if (this.page < this.totalPages) {
+
+      this.page++;
+
+      this.getProducts();
+    }
   }
 
-  // Helper to get stock status class and text
-  getStockStatus(stock: number): { class: string; text: string } {
-    if (stock <= 0) return { class: 'out-of-stock', text: 'Out of Stock' };
-    if (stock < 10) return { class: 'low-stock', text: `Only ${stock} left` };
-    return { class: 'in-stock', text: 'In Stock' };
+  previousPage() {
+
+    if (this.page > 1) {
+
+      this.page--;
+
+      this.getProducts();
+    }
   }
+
+  applyFilters() {
+
+    this.page = 1;
+
+    this.getProducts();
+  }
+
 }
