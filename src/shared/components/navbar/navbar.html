@@ -1,86 +1,55 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
-    <div>
-        <!-- Brand / Logo -->
-        <a class="navbar-brand fw-bold" routerLink="/" routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }">
-            ShopHub
-        </a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm px-3">
 
-        <!-- Mobile Toggle Button -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+  <!-- LEFT SIDE -->
+  <div class="navbar-nav flex-row gap-3">
 
-        <!-- Collapsible Navbar Links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+    <a class="nav-link fw-semibold" routerLink="/products">
+      Products
+    </a>
 
+    <a class="nav-link fw-semibold" routerLink="/cart">
+      Cart
+    </a>
 
+    <a class="nav-link fw-semibold" routerLink="/orders">
+      Orders
+    </a>
 
-                <!-- Products Link -->
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/products" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact: true }">
-                        Products
-                    </a>
-                </li>
+  </div>
 
+  <!-- RIGHT SIDE -->
+  <div class="ms-auto d-flex align-items-center gap-2">
 
+    <!-- NOT LOGGED IN -->
+    <ng-container *ngIf="!(user$ | async)">
+      
+      <a class="nav-link text-primary fw-semibold" routerLink="/login">
+        Login
+      </a>
 
+      <span class="text-muted">|</span>
 
-                <!-- Products Link -->
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/admin/add-product" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact: true }">
-                        Add Product
-                    </a>
-                </li>
+      <a class="nav-link text-primary fw-semibold" routerLink="/register">
+        Register
+      </a>
 
+    </ng-container>
 
+    <!-- LOGGED IN -->
+    <ng-container *ngIf="user$ | async as user">
 
+      <span class="nav-link fw-semibold text-dark">
+        {{ user.fullName }}
+      </span>
 
+      <span class="text-muted">|</span>
 
+      <a class="nav-link text-danger fw-semibold" style="cursor:pointer" (click)="logout()">
+        Logout
+      </a>
 
+    </ng-container>
 
+  </div>
 
-
-
-
-
-
-
-                <!-- Categories Link -->
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/categories" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact: true }">
-                        Categories
-                    </a>
-                </li>
-
-
-
-
-
-                <!-- Wishlist Link -->
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/wishlist" routerLinkActive="active">
-                        Wishlist
-                    </a>
-                </li>
-
-                <!-- Cart Link with optional badge -->
-                <li class="nav-item">
-                    <a class="nav-link position-relative" routerLink="/cart" routerLinkActive="active">
-                        🛒 Cart
-                        <!-- Example badge: you can bind to cart item count from a service -->
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            0
-                            <span class="visually-hidden">items in cart</span>
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
 </nav>
