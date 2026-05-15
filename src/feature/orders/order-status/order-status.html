@@ -1,0 +1,19 @@
+<div class="status-box">
+
+  <select [(ngModel)]="selectedStatus">
+
+    @for (status of statuses; track status) {
+
+      <option [value]="status">
+        {{ status }}
+      </option>
+
+    }
+
+  </select>
+
+  <button (click)="updateStatus()">
+    Update
+  </button>
+
+</div>
