@@ -54,4 +54,11 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+  getProfile() {
+  return this.http.get<any>(`${this.baseUrl}/profile`);
+}
+
+updateProfile(data: any) {
+  return this.http.put(`${this.baseUrl}/profile`, data);
+}
 }

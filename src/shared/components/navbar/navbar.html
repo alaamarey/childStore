@@ -38,6 +38,7 @@
     <!-- LOGGED IN -->
     <ng-container *ngIf="user$ | async as user">
 
+      <a class="nav-link fs-5" routerLink="/profile">👤</a>
       <span class="nav-link fw-semibold text-dark">
         {{ user.fullName }}
       </span>

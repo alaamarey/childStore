@@ -30,10 +30,16 @@ export const routes: Routes = [
     path: 'profile',
     loadComponent: () =>
       import('../feature/auth/profile/profile')
-        .then(m => m.Profile),
+        .then(m => m.ProfileComponent),
     canActivate: [authGuard]
   },
-
+  {
+    path: 'orders',
+    loadChildren: () =>
+      import('../feature/orders/order.routes').then(
+        (m) => m.ORDER_ROUTES
+      ),
+  },
   {
     path: '**',
     redirectTo: 'products'
