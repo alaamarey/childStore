@@ -1,0 +1,36 @@
+<div class="container mt-5">
+
+    <div class="card shadow-sm p-4 mx-auto"
+         style="max-width: 600px; border:1px solid #e6e6e6; border-radius:14px;">
+
+        <h3 class="text-center mb-4">Update Profile</h3>
+
+        <form [formGroup]="profileForm"
+              (ngSubmit)="submit()"
+              class="d-flex flex-column gap-3">
+
+            <input class="form-control"
+                   formControlName="fullName"
+                   placeholder="Full Name">
+
+            <input class="form-control"
+                   formControlName="address"
+                   placeholder="Address">
+
+            <input class="form-control"
+                   formControlName="phoneNumber"
+                   placeholder="Phone Number">
+
+            <input class="form-control"
+                   formControlName="paymentDetails"
+                   placeholder="Payment Details">
+
+            <button class="btn btn-primary w-100" type="submit">
+                Save Changes
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

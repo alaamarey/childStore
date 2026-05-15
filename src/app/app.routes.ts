@@ -41,6 +41,13 @@ export const routes: Routes = [
       ),
   },
   {
+  path: 'update-profile',
+  loadComponent: () =>
+    import('../feature/auth/update-profile/update-profile')
+      .then(m => m.UpdateProfile),
+      canActivate: [authGuard]
+  },
+  {
     path: '**',
     redirectTo: 'products'
   }

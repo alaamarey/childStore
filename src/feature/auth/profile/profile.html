@@ -8,35 +8,39 @@
             <h3 class="mt-2">My Profile</h3>
         </div>
 
-        <div class="mb-3">
-            <small class="text-muted">Full Name</small>
-            <p class="mb-0 fw-semibold">{{ profileForm.value.fullName }}</p>
+        <div *ngIf="profile">
+
+            <div class="mb-3">
+                <small class="text-muted">Full Name</small>
+                <p class="mb-0 fw-semibold">{{ profile.fullName }}</p>
+            </div>
+
+            <hr>
+
+            <div class="mb-3">
+                <small class="text-muted">Address</small>
+                <p class="mb-0 fw-semibold">{{ profile.address }}</p>
+            </div>
+
+            <hr>
+
+            <div class="mb-3">
+                <small class="text-muted">Phone Number</small>
+                <p class="mb-0 fw-semibold">{{ profile.phoneNumber }}</p>
+            </div>
+
+            <hr>
+
+            <div class="mb-4">
+                <small class="text-muted">Payment Details</small>
+                <p class="mb-0 fw-semibold">
+                    {{ profile.paymentDetails || 'Not Added Yet' }}
+                </p>
+            </div>
+
         </div>
 
-        <hr>
-
-        <div class="mb-3">
-            <small class="text-muted">Address</small>
-            <p class="mb-0 fw-semibold">{{ profileForm.value.address }}</p>
-        </div>
-
-        <hr>
-
-        <div class="mb-3">
-            <small class="text-muted">Phone Number</small>
-            <p class="mb-0 fw-semibold">{{ profileForm.value.phoneNumber }}</p>
-        </div>
-
-        <hr>
-
-        <div class="mb-4">
-            <small class="text-muted">Payment Details</small>
-            <p class="mb-0 fw-semibold">
-                {{ profileForm.value.paymentDetails || 'Not Added Yet' }}
-            </p>
-        </div>
-
-        <button class="btn btn-success" routerLink="/update-profile">
+        <button class="btn btn-success w-100" (click)="goToUpdateProfile()">
             Update Profile
         </button>
 

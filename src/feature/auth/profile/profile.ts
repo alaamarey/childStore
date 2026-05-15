@@ -1,38 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
+import { Router, RouterLink, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './profile.html'
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
 
-  profileForm = new FormGroup({
-    fullName: new FormControl(''),
-    address: new FormControl(''),
-    phoneNumber: new FormControl(''),
-    paymentDetails: new FormControl('')
-  });
+  profile: any;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
     this.loadProfile();
+
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.loadProfile();
+      });
   }
 
   loadProfile() {
-    this.authService.getProfile().subscribe((res: any) => {
-      this.profileForm.patchValue(res);
+    this.authService.getProfile().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.profile = res;
+      }
     });
   }
 
-  save() {
-    this.authService.updateProfile(this.profileForm.value).subscribe({
-      next: () => {
-        alert('Profile updated successfully');
-      }
-    });
+  goToUpdateProfile() {
+    this.router.navigate(['/update-profile']);
   }
 }

@@ -59,6 +59,10 @@ export class AuthService {
 }
 
 updateProfile(data: any) {
-  return this.http.put(`${this.baseUrl}/profile`, data);
+  return this.http.put(
+    `${this.baseUrl}/profile`,
+    data,
+    { responseType: 'text' }
+  );
 }
 }
