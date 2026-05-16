@@ -1,44 +1,40 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { Product } from '../../core/models/iproduct';
 import { ProductService } from '../../core/services/ProductService';
-import { RouterLink } from '@angular/router';
-
 
 @Component({
   selector: 'app-product',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './products.html',
-  styleUrl: './products.css'
+  styleUrls: ['./products.css']
 })
 export class ProductComponent implements OnInit {
-
   private productService = inject(ProductService);
-
-
-  @Input() product: any;
+  private cdr = inject(ChangeDetectorRef);
 
   products: Product[] = [];
-
   totalCount: number = 0;
-
   page: number = 1;
-  pageSize: number = 10;
-
+  pageSize: number = 10;   // Standard pagination size
   search: string = '';
-
   minPrice?: number;
   maxPrice?: number;
-
   totalPages: number = 0;
+  loading: boolean = false;
+  errorMessage: string | null = null;
 
   ngOnInit(): void {
-    this.getProducts();
+    this.getProducts();   // Automatically loads page 1
   }
 
-  getProducts() {
+  getProducts(): void {
+    this.loading = true;
+    this.errorMessage = null;
+    this.cdr.markForCheck();   // Ensure loading indicator appears
 
     this.productService.getProducts(
       this.page,
@@ -47,58 +43,47 @@ export class ProductComponent implements OnInit {
       this.minPrice,
       this.maxPrice
     ).subscribe({
-
       next: (response) => {
-
         this.products = response.data;
-
         this.totalCount = response.totalCount;
-
         this.page = response.page;
-
         this.pageSize = response.pageSize;
-
-        this.totalPages = Math.ceil(
-          this.totalCount / this.pageSize
-        );
+        this.totalPages = Math.ceil(this.totalCount / this.pageSize);
+        this.loading = false;
+        this.cdr.markForCheck();   // Update view with products
       },
-
       error: (err) => {
-        console.log(err);
+        console.error('Error fetching products:', err);
+        this.errorMessage = 'Failed to load products. Please try again.';
+        this.loading = false;
+        this.cdr.markForCheck();
+        // Auto-clear error after 3 seconds
+        setTimeout(() => {
+          if (this.errorMessage) {
+            this.errorMessage = null;
+            this.cdr.markForCheck();
+          }
+        }, 3000);
       }
-
     });
-
   }
 
-  nextPage() {
-
+  nextPage(): void {
     if (this.page < this.totalPages) {
-
       this.page++;
-
-      this.getProducts();
+      this.getProducts();   // Fetch next page
     }
   }
 
-  previousPage() {
-
+  previousPage(): void {
     if (this.page > 1) {
-
       this.page--;
-
-      this.getProducts();
+      this.getProducts();   // Fetch previous page
     }
   }
 
-  applyFilters() {
-
-    this.page = 1;
-
+  applyFilters(): void {
+    this.page = 1;          // Reset to first page when filtering
     this.getProducts();
   }
-
-
-
-
 }
