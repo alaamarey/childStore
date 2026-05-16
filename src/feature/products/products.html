@@ -3,84 +3,59 @@
     <h1>Products</h1>
 
     <!-- FILTERS -->
-
     <div class="filters">
-
         <input type="text" placeholder="Search..." [(ngModel)]="search">
-
         <input type="number" placeholder="Min Price" [(ngModel)]="minPrice">
-
         <input type="number" placeholder="Max Price" [(ngModel)]="maxPrice">
-
-        <button (click)="applyFilters()">
-            Search
-        </button>
-
+        <button (click)="applyFilters()">Search</button>
     </div>
 
-    <!-- PRODUCTS -->
+    <!-- LOADING & ERROR -->
+    @if (loading) {
+    <div class="loading">Loading products...</div>
+    }
+    @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+    }
 
+    <!-- PRODUCTS GRID -->
+    @if (!loading && products.length === 0 && !errorMessage) {
+    <div class="no-products">No products found.</div>
+    }
     <div class="products-grid">
-
-        @for(product of products; track product.id){
-
+        @for(product of products; track product.id) {
         <div class="card">
-
-            <img [src]="product.image">
-
-            <h3>
-                {{ product.title }}
-            </h3>
-
-            <p class="price">
-                $ {{ product.price }}
-            </p>
-
-            <p>
-                {{ product.description }}
-            </p>
-
-            <div class="details">
-
-                <span>
-                    ⭐ {{ product.rate }}
-                </span>
-
-                <span>
-                    Stock: {{ product.stock }}
-                </span>
-
+            <div [routerLink]="['/details', product.id]" class="cursor-pointer">
+                <img [src]="product.image" [alt]="product.title">
+                <h3>{{ product.title }}</h3>
+                <p class="price">$ {{ product.price }}</p>
+                <p>{{ product.description }}</p>
+                <div class="details">
+                    <span>⭐ {{ product.rate }}</span>
+                    <span>Stock: {{ product.stock }}</span>
+                </div>
             </div>
-
-            <div class="category">
-                {{ product.category }}
+            <div class="category cursor-pointer">
+                <p>Add To Cart</p>
             </div>
           <button class="btn btn-primary"
         (click)="addToCart(product)">
   Add to Cart
 </button>
         </div>
-
         }
-
     </div>
 
-    <!-- PAGINATION -->
-
+    <!-- PAGINATION CONTROLS -->
+    @if (totalPages > 1 && !loading) {
     <div class="pagination">
-
         <button (click)="previousPage()" [disabled]="page == 1">
             Prev
         </button>
-
-        <span>
-            Page {{ page }} of {{ totalPages }}
-        </span>
-
+        <span>Page {{ page }} of {{ totalPages }}</span>
         <button (click)="nextPage()" [disabled]="page == totalPages">
             Next
         </button>
-
     </div>
-
+    }
 </div>

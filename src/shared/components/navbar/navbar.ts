@@ -1,23 +1,17 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
 export class Navbar {
 
-  private authService = inject(AuthService);
-  private router = inject(Router);
-
-  user$ = this.authService.user$;
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+  closeNavbar(navbarToggler: HTMLElement, navbarCollapse: HTMLElement) {
+    if (navbarToggler.getAttribute('aria-expanded') === 'true') {
+      navbarToggler.click();
+    }
   }
 }

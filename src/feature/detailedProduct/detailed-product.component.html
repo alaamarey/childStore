@@ -1,0 +1,111 @@
+@if(product){
+
+<div class="page">
+
+    <!-- breadcrumb -->
+    <div class="breadcrumb">
+        Home / {{ product.category }} / {{ product.title }}
+    </div>
+
+    <!-- TOP SECTION -->
+    <div class="top-section">
+
+        <!-- LEFT: images -->
+        <div class="images">
+
+            <div class="thumbnails">
+                <img [src]="product.image" class="thumb active">
+                <img [src]="product.image" class="thumb">
+                <img [src]="product.image" class="thumb">
+            </div>
+
+            <div class="main-image">
+                <img [src]="product.image">
+            </div>
+
+        </div>
+
+        <!-- RIGHT: details -->
+        <div class="details">
+
+            <span class="category">{{ product.category }}</span>
+
+            <h1 class="title">{{ product.title }}</h1>
+
+            <div class="rating">
+                ⭐ {{ product.rate }} ({{ product.ratingCount }} reviews)
+            </div>
+
+            <div class="price">
+                ${{ product.price }}
+            </div>
+
+            <div class="stock" [class.low]="product.stock < 10">
+                {{ product.stock > 0 ? 'In Stock' : 'Out of Stock' }}
+            </div>
+
+            <p class="desc">
+                {{ product.description }}
+            </p>
+
+            <!-- quantity -->
+            <div class="quantity">
+                <button>-</button>
+                <span>1</span>
+                <button>+</button>
+            </div>
+
+            <!-- buttons -->
+            <div class="actions">
+                <button class="add">Add to Cart</button>
+                <button class="wish">♡ Wishlist</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- REVIEWS -->
+    <div class="reviews">
+
+        <h2>Customer Reviews</h2>
+
+        <div class="review-card">
+            <div class="user">JD</div>
+            <div>
+                <h4>James Donovan</h4>
+                <p>Great product quality and fast delivery.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RELATED -->
+    <div class="related">
+
+        <h2>You May Also Like</h2>
+
+        <div class="grid">
+
+            <div class="card">
+                <img [src]="product.image">
+                <h4>Similar Product</h4>
+                <p>$99</p>
+            </div>
+
+            <div class="card">
+                <img [src]="product.image">
+                <h4>Another Product</h4>
+                <p>$120</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+}
+@else {
+<div class="loading">Loading...</div>
+}

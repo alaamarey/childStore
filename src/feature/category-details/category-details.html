@@ -1,0 +1,39 @@
+@if(category){
+
+<div class="container">
+
+    <h1>{{ category.name }}</h1>
+
+    <div class="products-grid">
+
+        @for(product of category.products; track product.id){
+
+        <div class="card">
+
+            <img [src]="product.image">
+
+            <h3>{{ product.title }}</h3>
+
+            <p>{{ product.price }} $</p>
+
+            <span>⭐ {{ product.rate }}</span>
+
+            <p class="stock">
+                Stock: {{ product.stock }}
+            </p>
+
+        </div>
+
+        }
+
+    </div>
+
+</div>
+
+}
+
+@else {
+
+<p>Loading category...</p>
+
+}
