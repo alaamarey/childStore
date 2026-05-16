@@ -1,0 +1,50 @@
+<div class="orders-page">
+
+  <!-- LEFT -->
+  <div class="orders-sidebar">
+
+    <h1>My Orders</h1>
+
+    <p class="orders-count">
+      {{ ordersService.orders().length }} Recent Orders
+    </p>
+
+    @for (order of ordersService.orders(); track order.id) {
+
+      <div
+        class="order-card"
+        [class.active]="selectedOrderId() === order.id"
+        (click)="selectOrder(order.id)"
+      >
+
+        <div class="top-row">
+          <span>#LX-{{ order.id }}</span>
+
+          <app-order-status-badge
+            [status]="order.status"
+          />
+        </div>
+
+        <h3>
+          {{ order.createdAt | date:'MMM d, y' }}
+        </h3>
+
+        <h2>
+          ${{ order.totalPrice }}
+        </h2>
+
+      </div>
+    }
+
+  </div>
+
+  <!-- RIGHT -->
+  <div class="order-details-wrapper">
+
+    <app-order-details
+      [orderId]="selectedOrderId()"
+    />
+
+  </div>
+
+</div>

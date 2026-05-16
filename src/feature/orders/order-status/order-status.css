@@ -1,0 +1,17 @@
+.status-box {
+  display: flex;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+select {
+  padding: 8px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  background: #6366f1;
+  color: white;
+  border-radius: 8px;
+}
