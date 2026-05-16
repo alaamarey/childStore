@@ -1,0 +1,184 @@
+.page {
+    width: 90%;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+
+/* breadcrumb */
+.breadcrumb {
+    font-size: 13px;
+    color: gray;
+    margin: 15px 0;
+}
+
+/* TOP SECTION */
+.top-section {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* images */
+.images {
+    display: flex;
+    gap: 15px;
+}
+
+.thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.thumb {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.thumb.active {
+    border-color: #6c5ce7;
+}
+
+.main-image img {
+    width: 420px;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* details */
+.details {
+    flex: 1;
+}
+
+.category {
+    color: #6c5ce7;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.title {
+    font-size: 28px;
+    margin: 10px 0;
+}
+
+.rating {
+    color: #f1c40f;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 28px;
+    color: #2d3436;
+    font-weight: bold;
+}
+
+.stock {
+    margin: 10px 0;
+    color: green;
+}
+
+.stock.low {
+    color: red;
+}
+
+.desc {
+    color: #636e72;
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+/* quantity */
+.quantity {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.quantity button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: #eee;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* actions */
+.actions {
+    display: flex;
+    gap: 15px;
+}
+
+.add {
+    background: #6c5ce7;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.wish {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* reviews */
+.reviews {
+    margin-top: 50px;
+}
+
+.review-card {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.user {
+    width: 40px;
+    height: 40px;
+    background: #6c5ce7;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* related */
+.related {
+    margin-top: 50px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.card {
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}

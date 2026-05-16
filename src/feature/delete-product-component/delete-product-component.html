@@ -1,0 +1,26 @@
+<div class="container mt-5 w-50">
+
+    <h2 class="mb-4">Delete Product</h2>
+
+    <div class="mb-3">
+
+        <label class="form-label">Product Id</label>
+
+        <input type="number" class="form-control" [(ngModel)]="productId">
+
+    </div>
+
+    <button class="btn btn-danger" (click)="deleteProduct()">
+
+        Delete Product
+
+    </button>
+
+    @if(message)
+    {
+    <div class="alert alert-info mt-3">
+        {{message}}
+    </div>
+    }
+
+</div>

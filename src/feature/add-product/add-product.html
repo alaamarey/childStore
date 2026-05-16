@@ -1,0 +1,49 @@
+<div class="container">
+
+    <form #addForm="ngForm" (ngSubmit)="addProduct()">
+
+        <h1>Add Product</h1>
+
+        <input type="text" placeholder="Title" name="title" [(ngModel)]="product.title" required>
+
+        <input type="number" placeholder="Price" name="price" [(ngModel)]="product.price" required>
+
+        <textarea placeholder="Description" name="description" [(ngModel)]="product.description" required></textarea>
+
+        <input type="text" placeholder="Image URL" name="image" [(ngModel)]="product.image" required>
+
+        <input type="number" placeholder="Stock" name="stock" [(ngModel)]="product.stock" required>
+
+        <input type="number" placeholder="Rate" name="rate" [(ngModel)]="product.rate">
+
+        <input type="number" placeholder="Rating Count" name="ratingCount" [(ngModel)]="product.ratingCount">
+
+        <input type="text" placeholder="Category Name" name="categoryName" [(ngModel)]="product.categoryName" required>
+
+        <button [disabled]="addForm.invalid || isLoading">
+
+            @if(isLoading){
+
+            Adding...
+
+            }
+
+            @else {
+
+            Add Product
+
+            }
+
+        </button>
+
+        @if(successMessage){
+
+        <p class="success">
+            {{ successMessage }}
+        </p>
+
+        }
+
+    </form>
+
+</div>

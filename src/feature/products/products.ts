@@ -1,20 +1,24 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../core/models/iproduct';
 import { ProductService } from '../../core/services/ProductService';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './products.html',
   styleUrl: './products.css'
 })
 export class ProductComponent implements OnInit {
 
   private productService = inject(ProductService);
+
+
+  @Input() product: any;
 
   products: Product[] = [];
 
@@ -93,5 +97,8 @@ export class ProductComponent implements OnInit {
 
     this.getProducts();
   }
+
+
+
 
 }

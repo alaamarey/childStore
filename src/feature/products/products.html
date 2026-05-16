@@ -24,39 +24,48 @@
 
         @for(product of products; track product.id){
 
-        <div class="card">
+        <div class="card ">
 
-            <img [src]="product.image">
 
-            <h3>
-                {{ product.title }}
-            </h3>
 
-            <p class="price">
-                $ {{ product.price }}
-            </p>
+            <div [routerLink]="['/details', product.id]" class="cursor-pointer">
+                <img [src]="product.image">
 
-            <p>
-                {{ product.description }}
-            </p>
+                <h3>
+                    {{ product.title }}
+                </h3>
 
-            <div class="details">
+                <p class="price">
+                    $ {{ product.price }}
+                </p>
 
-                <span>
-                    ⭐ {{ product.rate }}
-                </span>
+                <p>
+                    {{ product.description }}
+                </p>
 
-                <span>
-                    Stock: {{ product.stock }}
-                </span>
+                <div class="details">
+
+                    <span>
+                        ⭐ {{ product.rate }}
+                    </span>
+
+                    <span>
+                        Stock: {{ product.stock }}
+                    </span>
+
+                </div>
 
             </div>
 
-            <div class="category">
-                {{ product.category }}
+
+            <div class="category  cursor-pointer">
+                <p>
+                    Add To Cart
+                </p>
             </div>
 
         </div>
+
 
         }
 
