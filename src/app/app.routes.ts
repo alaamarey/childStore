@@ -48,6 +48,11 @@ export const routes: Routes = [
       canActivate: [authGuard]
   },
   {
+    path: 'cart',
+    loadComponent: () =>
+      import('../feature/cart/cart').then(m => m.CartComponent)
+  },
+  {
     path: '**',
     redirectTo: 'products'
   }

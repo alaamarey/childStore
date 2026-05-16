@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../core/models/iproduct';
 import { ProductService } from '../../core/services/ProductService';
+import { CartService } from '../../core/services/cart';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { ProductService } from '../../core/services/ProductService';
 export class ProductComponent implements OnInit {
 
   private productService = inject(ProductService);
+  private cartService = inject(CartService);
 
   products: Product[] = [];
 
@@ -93,5 +95,36 @@ export class ProductComponent implements OnInit {
 
     this.getProducts();
   }
+ addToCart(product: any) {
+
+  this.cartService.getMyCart().subscribe({
+    next: (cart) => {
+
+      const existingItem = cart.items.find(
+        (item: any) => item.productId === product.id
+      );
+
+      if (existingItem) {
+
+        this.cartService.updateItem(
+          cart.id,
+          product.id,
+          existingItem.quantity + 1
+        ).subscribe(() => {
+          console.log('Updated quantity');
+        });
+
+      } else {
+
+        this.cartService.addToCart(product.id, 1).subscribe(() => {
+          console.log('Added new item');
+        });
+
+      }
+
+    }
+  });
+
+}
 
 }

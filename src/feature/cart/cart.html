@@ -1,0 +1,82 @@
+<div *ngIf="cart" class="container mt-4">
+
+  <h2 class="mb-4">My Cart</h2>
+
+  <!-- PRODUCTS -->
+  <div *ngFor="let item of cart.items" class="row border rounded p-3 mb-3 align-items-center">
+
+    <!-- LEFT SIDE (DATA) -->
+    <div class="col-md-8">
+
+      <h4>{{ item.productName }}</h4>
+
+      <div class="d-flex flex-column gap-1 mt-2">
+
+        <div class="d-flex align-items-center gap-2">
+
+  <button class="btn btn-outline-secondary btn-sm"
+          (click)="decreaseQty(item)">
+    -
+  </button>
+
+  <span class="px-2">
+    {{ item.quantity }}
+  </span>
+
+  <button class="btn btn-outline-secondary btn-sm"
+          (click)="increaseQty(item)">
+    +
+  </button>
+
+</div>
+        <span>Price: {{ item.unitPrice }}</span>
+        <span>Total: {{ item.total }}</span>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE (IMAGE) -->
+    <div class="col-md-4 text-end">
+
+      <img [src]="item.image"
+           class="img-fluid rounded"
+           style="width: 200px; height: 200px; object-fit: cover;">
+
+    </div>
+
+  </div>
+
+  <!-- TOTAL -->
+  <div class="text-end mt-4">
+
+    <h4>Total: {{ cart.total }}</h4>
+
+  </div>
+
+  <!-- CHECKOUT BUTTON -->
+  <div class="text-center mt-4">
+
+    <button class="btn btn-success px-5 py-2 rounded w-100">
+      Checkout
+    </button>
+
+  </div>
+
+</div>
+
+<div *ngIf="message"
+     class="alert position-fixed top-0 start-50 translate-middle-x mt-3 shadow"
+     [ngClass]="{
+       'alert-success': messageType === 'success',
+       'alert-danger': messageType === 'danger'
+     }"
+     style="z-index: 1050; min-width: 300px; text-align: center;">
+
+  {{ message }}
+
+</div>
+
+<ng-template #loading>
+  <p>Loading cart...</p>
+</ng-template>

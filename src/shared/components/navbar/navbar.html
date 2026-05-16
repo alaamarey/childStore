@@ -36,20 +36,24 @@
     </ng-container>
 
     <!-- LOGGED IN -->
-    <ng-container *ngIf="user$ | async as user">
+    <!-- LOGGED IN -->
+<ng-container *ngIf="user$ | async as user">
+  <a class="nav-link fs-5 position-relative" routerLink="/cart"> 🛒 </a>
 
-      <a class="nav-link fs-5" routerLink="/profile">👤</a>
-      <span class="nav-link fw-semibold text-dark">
-        {{ user.fullName }}
-      </span>
+  <a class="nav-link fs-5" routerLink="/profile">👤</a> 
+  <span class="nav-link fw-semibold text-dark">
+    {{ user.fullName }}
+  </span>
 
-      <span class="text-muted">|</span>
+  <span class="text-muted">|</span>
 
-      <a class="nav-link text-danger fw-semibold" style="cursor:pointer" (click)="logout()">
-        Logout
-      </a>
+  <a class="nav-link text-danger fw-semibold"
+     style="cursor:pointer"
+     (click)="logout()">
+    Logout
+  </a>
 
-    </ng-container>
+</ng-container>
 
   </div>
 
