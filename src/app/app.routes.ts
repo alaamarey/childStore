@@ -6,30 +6,20 @@ import { CategoriesComponent } from '../feature/category/category';
 import { CategoryDetailsComponent } from '../feature/category-details/category-details';
 import { DeleteProductComponent } from '../feature/delete-product-component/delete-product-component';
 import { SellerDashboardComponent } from '../feature/seller-dashboard/seller-dashboard';
+import { authGuard } from '../core/guards/auth-guard';
 
-export const routes: Routes =
-    [
-        { path: '', redirectTo: 'products', pathMatch: 'full' },
+export const routes: Routes = [
+
+  { path: '', redirectTo: 'products', pathMatch: 'full' },
+
+  { path: '', redirectTo: 'products', pathMatch: 'full' },
         { path: 'products', component: ProductComponent },
         { path: 'details/:id', component: DetailedProductComponent },
         { path: 'add-product', component: AddProductComponent },
         { path: 'categories', component: CategoriesComponent },
         { path: 'category/:id', component: CategoryDetailsComponent },
         { path: 'delete-product', component: DeleteProductComponent },
-        { path: 'seller-dashboard', component: SellerDashboardComponent }
-
-
-
-    ];
-
-export const routes: Routes = [
-
-  { path: '', redirectTo: 'products', pathMatch: 'full' },
-
-  {
-    path: 'products',
-    component: ProductComponent
-  },
+        { path: 'seller-dashboard', component: SellerDashboardComponent },
 
   {
     path: 'login',

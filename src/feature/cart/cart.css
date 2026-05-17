@@ -62,3 +62,11 @@
 .checkout-btn:hover {
   background-color: #218838;
 }
+.alert {
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+.alert.ng-leave {
+  opacity: 0;
+}

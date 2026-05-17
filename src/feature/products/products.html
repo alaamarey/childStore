@@ -32,16 +32,12 @@
                 <p>{{ product.description }}</p>
                 <div class="details">
                     <span>⭐ {{ product.rate }}</span>
-                    <span>Stock: {{ product.stock }}</span>
                 </div>
             </div>
             <div class="category cursor-pointer">
-                <p>Add To Cart</p>
+                <a (click)="addToCart(product)"> Add to Cart</a>
             </div>
-          <button class="btn btn-primary"
-        (click)="addToCart(product)">
-  Add to Cart
-</button>
+          
         </div>
         }
     </div>

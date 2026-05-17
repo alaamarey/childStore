@@ -89,8 +89,7 @@ export class ProductComponent implements OnInit {
     this.page = 1;          // Reset to first page when filtering
     this.getProducts();
   }
-  }
- addToCart(product: any) {
+   addToCart(product: any) {
 
   this.cartService.getMyCart().subscribe({
     next: (cart) => {
@@ -121,5 +120,6 @@ export class ProductComponent implements OnInit {
   });
 
 }
+  }
 
-}
+

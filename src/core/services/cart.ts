@@ -41,4 +41,11 @@ export class CartService {
       }
     });
   }
+
+  removeFromCart(cartId: number, productId: number) {
+  return this.http.delete(
+    `${this.baseUrl}/${cartId}/${productId}`,
+    { responseType: 'text' }
+  );
+}
 }

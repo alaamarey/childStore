@@ -12,6 +12,8 @@ import { MyCart } from '../../core/models/my-cart';
 export class CartComponent implements OnInit {
 
   cart!: MyCart;
+  message: string = '';
+messageType: 'success' | 'error' | '' = '';
 
   constructor(private cartService: CartService) {}
 
@@ -28,11 +30,6 @@ export class CartComponent implements OnInit {
     });
   }
 
-  removeItem(productId: number) {
-    this.cartService.deleteItem(this.cart.id, productId).subscribe(() => {
-      this.loadCart();
-    });
-  }
 
   clearCart() {
     this.cartService.clearCart(this.cart.id).subscribe(() => {
@@ -48,12 +45,22 @@ export class CartComponent implements OnInit {
   }
 
   decreaseQty(item: any) {
+  if (item.quantity > 1) {
+    item.quantity--;
 
-    if (item.quantity > 1) {
-      item.quantity--;
-      this.updateItem(item);
-    }
+    // update total بتاع item
+    item.total = item.quantity * item.unitPrice;
+
+    // update cart total
+    this.cart.total = this.cart.items.reduce(
+      (sum: number, x: any) => sum + x.total,
+      0
+    );
+
+   
   }
+}
+
 
   updateItem(item: any) {
 
@@ -67,4 +74,35 @@ export class CartComponent implements OnInit {
     });
 
   }
+
+ removeItem(item: any) {
+  const cartId = this.cart.id; 
+
+  this.cartService.removeFromCart(cartId, item.productId)
+    .subscribe({
+      next: (res) => {
+        console.log(res); 
+
+        this.cart.items = this.cart.items.filter(
+          x => x.productId !== item.productId
+        );
+
+        this.cart.total = this.cart.items.reduce(
+          (sum: number, x: any) => sum + x.total,
+          0
+        );
+      },
+      error: (err) => {
+        console.log("Delete error:", err);
+      }
+    });
+}
+checkout() {
+  console.log("checkout clicked");
+}
+getTotalPrice(): number {
+  return this.cart.items.reduce((sum: number, item: any) => {
+    return sum + (item.unitPrice * item.quantity);
+  }, 0);
+}
 }
