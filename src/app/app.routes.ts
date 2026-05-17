@@ -62,6 +62,12 @@ export const routes: Routes = [
       import('../feature/cart/cart').then(m => m.CartComponent)
   },
   {
+  path: 'payment-success',
+  loadComponent: () =>
+    import('../feature/payment-success/payment-success')
+      .then(m => m.PaymentSuccessComponent)
+},
+  {
     path: '**',
     redirectTo: 'products'
   }
