@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../core/services/cart';
 import { MyCart } from '../../core/models/my-cart';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -17,7 +17,7 @@ export class CartComponent implements OnInit {
   message: string = '';
 messageType: 'success' | 'error' | '' = '';
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadCart();
@@ -100,7 +100,7 @@ messageType: 'success' | 'error' | '' = '';
     });
 }
 checkout() {
-  console.log("checkout clicked");
+  this.router.navigate(['/orders']);
 }
 getTotalPrice(): number {
   return this.cart.items.reduce((sum: number, item: any) => {
