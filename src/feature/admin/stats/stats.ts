@@ -41,7 +41,7 @@ export class StatsComponent implements OnInit, AfterViewInit {
       y: { grid: { color: gridColor }, ticks: { color: labelColor, font: { size: 11 } } }
     };
 
-    // Revenue bar chart
+    
     this.charts.push(new Chart(this.revenueChartRef.nativeElement, {
       type: 'bar',
       data: {
