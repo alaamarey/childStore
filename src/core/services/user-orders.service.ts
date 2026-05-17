@@ -1,4 +1,4 @@
-// user-orders.service.ts
+
 
 import {
   Injectable,
@@ -32,9 +32,7 @@ export class UserOrdersService {
   private readonly API_URL =
     'http://ecommercepro.runasp.net/api';
 
-  // =========================
-  // SIGNALS
-  // =========================
+ 
 
   userOrders =
     signal<IUserOrder[]>([]);
@@ -42,9 +40,7 @@ export class UserOrdersService {
   isLoading =
     signal(false);
 
-  // =========================
-  // GET USER ORDERS
-  // =========================
+  
 
   getUserOrders():
   Observable<IUserOrder[]> {
@@ -74,9 +70,7 @@ export class UserOrdersService {
       );
   }
 
-  // =========================
-  // GET ORDER BY ID
-  // =========================
+ 
 
   getOrderById(
     id: number
