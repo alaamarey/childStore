@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PaymentService } from '../../core/services/payment';
 
 @Component({
   selector: 'app-payment-success',
   standalone: true,
-  templateUrl: './payment-success.html'
+  templateUrl: './payment-success.html',
+  styleUrl: './payment-success.css',
+  imports: [RouterLink]
 })
 export class PaymentSuccessComponent implements OnInit {
 

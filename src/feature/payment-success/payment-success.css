@@ -1,0 +1,80 @@
+.success-page {
+  min-height: 100vh;
+  background: #f3f0fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.success-card {
+  background: white;
+  border-radius: 16px;
+  padding: 48px 32px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  text-align: center;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9b6f5, #7c5cbf);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 36px;
+}
+
+.success-badge {
+  display: inline-block;
+  font-size: 12px;
+  color: #7c5cbf;
+  background: #f0edf8;
+  padding: 3px 14px;
+  border-radius: 20px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.success-card h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
+
+.success-card p {
+  font-size: 14px;
+  color: #888;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.success-divider {
+  height: 1px;
+  background: #f0edf8;
+  margin-bottom: 28px;
+}
+
+.btn-back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #5a3fb5;
+  color: white;
+  text-decoration: none;
+  padding: 13px 32px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-back-home:hover {
+  background: #4a2fa5;
+}
