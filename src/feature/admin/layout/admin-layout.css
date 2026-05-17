@@ -9,6 +9,7 @@
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   background: #ede9fe;
+  overflow: visible;
 }
 
 .sidebar {
@@ -129,6 +130,7 @@ nav a.active {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow: visible;
 }
 
 .topbar {
@@ -238,6 +240,8 @@ nav a.active {
 .content {
   flex: 1;
   padding: 32px;
+  overflow: visible;
+  position: relative;
 }
 
 .admin-footer {

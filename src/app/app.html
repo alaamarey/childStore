@@ -1,5 +1,26 @@
-<app-navbar></app-navbar>
-<main class="container my-4">
-    <router-outlet></router-outlet>
+@if (!isAdminRoute()) {
+  <app-navbar></app-navbar>
+}
+
+<main [class]="isAdminRoute() ? '' : 'container my-4'">
+  <router-outlet></router-outlet>
 </main>
-<app-footer></app-footer>
+
+@if (!isAdminRoute()) {
+  <app-footer></app-footer>
+}
+
+<!-- ── Global Modal Overlay ── -->
+<div class="global-overlay" [class.show]="modalService.showModal()" (mousedown)="closeOnBackdrop($event)">
+  <div class="global-modal">
+
+    @if (modalService.modalType() === 'user') {
+      <app-user-modal />
+    }
+
+    @if (modalService.modalType() === 'product') {
+      <app-product-modal />
+    }
+
+  </div>
+</div>

@@ -13,6 +13,7 @@ export class ModalService {
     this.isEditing.set(editing);
     this.showModal.set(true);
   }
+  //close the modal and reset all related signals
 
   close() {
     this.showModal.set(false);
