@@ -13,13 +13,13 @@ export const routes: Routes = [
   { path: '', redirectTo: 'products', pathMatch: 'full' },
 
   { path: '', redirectTo: 'products', pathMatch: 'full' },
-        { path: 'products', component: ProductComponent },
-        { path: 'details/:id', component: DetailedProductComponent },
-        { path: 'add-product', component: AddProductComponent },
-        { path: 'categories', component: CategoriesComponent },
-        { path: 'category/:id', component: CategoryDetailsComponent },
-        { path: 'delete-product', component: DeleteProductComponent },
-        { path: 'seller-dashboard', component: SellerDashboardComponent },
+  { path: 'products', component: ProductComponent },
+  { path: 'details/:id', component: DetailedProductComponent },
+  { path: 'add-product', component: AddProductComponent },
+  { path: 'categories', component: CategoriesComponent },
+  { path: 'category/:id', component: CategoryDetailsComponent },
+  { path: 'delete-product', component: DeleteProductComponent },
+  { path: 'seller-dashboard', component: SellerDashboardComponent },
 
   {
     path: 'login',
@@ -50,11 +50,11 @@ export const routes: Routes = [
       ),
   },
   {
-  path: 'update-profile',
-  loadComponent: () =>
-    import('../feature/auth/update-profile/update-profile')
-      .then(m => m.UpdateProfile),
-      canActivate: [authGuard]
+    path: 'update-profile',
+    loadComponent: () =>
+      import('../feature/auth/update-profile/update-profile')
+        .then(m => m.UpdateProfile),
+    canActivate: [authGuard]
   },
   {
     path: 'cart',
@@ -62,11 +62,11 @@ export const routes: Routes = [
       import('../feature/cart/cart').then(m => m.CartComponent)
   },
   {
-  path: 'payment-success',
-  loadComponent: () =>
-    import('../feature/payment-success/payment-success')
-      .then(m => m.PaymentSuccessComponent)
-},
+    path: 'payment-success',
+    loadComponent: () =>
+      import('../feature/payment-success/payment-success')
+        .then(m => m.PaymentSuccessComponent)
+  },
   {
     path: '**',
     redirectTo: 'products'

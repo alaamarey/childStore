@@ -57,6 +57,10 @@ export class DetailedProductComponent implements OnInit {
     });
 
   }
+
+
+
+
   getProductDetails() {
 
     this.productService.getProductById(this.productId)
@@ -81,5 +85,10 @@ export class DetailedProductComponent implements OnInit {
       });
 
   }
+
+
+
+
+
 
 }
