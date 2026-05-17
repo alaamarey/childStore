@@ -1,34 +1,116 @@
-<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+<!-- الصفحة الكاملة -->
+<div class="register-page">
 
-  <div class="card p-4 shadow-sm"
-       style="width: 420px; border: 1px solid #e6e6e6; border-radius: 12px;">
+  <!-- Navbar -->
+  <nav class="register-nav">
+    <span class="brand">Yalla Shop</span>
+    <a  routerLink="/products">← Back to Home</a>
+  </nav>
 
-    <h3 class="text-center mb-4">Register</h3>
+  <!-- Main Content -->
+  <div class="register-main">
 
-    <form [formGroup]="registerForm" (ngSubmit)="submit()" 
-          class="d-flex flex-column gap-3">
+    <!-- Left: Text + Hero -->
+    <div class="register-left">
+      <h1>Join Our<br>Community.</h1>
+      <p>Create your account and start exploring premium products. Fast, secure, and designed with you in mind.</p>
+      <div class="hero-placeholder"></div>
+    </div>
 
-      <input formControlName="fullName" placeholder="Full Name" class="form-control">
+    <!-- Right: Card -->
+    <div class="register-card">
 
-      <input formControlName="email" placeholder="Email" class="form-control">
+      <!-- Tabs -->
+      <div class="register-tabs">
+       
+        <button class="tab active">Register</button>
+      </div>
 
-      <input formControlName="phoneNumber" placeholder="Phone" class="form-control">
+      <h2>Create Account</h2>
+      <p class="subtitle">Fill in your details to get started.</p>
 
-      <input formControlName="password" placeholder="Password" type="password" class="form-control">
+      <form [formGroup]="registerForm" (ngSubmit)="submit()" class="register-form">
 
-      <input formControlName="address" placeholder="Address" class="form-control">
+        <!-- Row: Full Name + Phone -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name</label>
+            <div class="input-wrap">
+              <span class="input-icon">👤</span>
+              <input formControlName="fullName"
+                     placeholder="John Doe"
+                     class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <div class="input-wrap">
+              <span class="input-icon">📞</span>
+              <input formControlName="phoneNumber"
+                     placeholder="+20 1XX XXX XXXX"
+                     class="form-control">
+            </div>
+          </div>
+        </div>
 
-      <select formControlName="role" class="form-control">
-        <option value="Customer">Customer</option>
-        <option value="Seller">Seller</option>
-      </select>
+        <!-- Email -->
+        <div class="form-group full-width">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉</span>
+            <input formControlName="email"
+                   placeholder="name@example.com"
+                   class="form-control">
+          </div>
+        </div>
 
-      <button type="submit" class="btn btn-primary w-100">
-        Register
-      </button>
+        <!-- Password -->
+        <div class="form-group full-width">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input formControlName="password"
+                   placeholder="••••••••"
+                   type="password"
+                   class="form-control">
+          </div>
+        </div>
 
-    </form>
+        <!-- Row: Address + Role -->
+        <div class="form-row">
+          <div class="form-group address-col">
+            <label>Address</label>
+            <div class="input-wrap">
+              <span class="input-icon">📍</span>
+              <input formControlName="address"
+                     placeholder="Your address"
+                     class="form-control">
+            </div>
+          </div>
+          <div class="form-group role-col">
+            <label>Role</label>
+            <div class="input-wrap">
+              <span class="input-icon">🏷</span>
+              <select formControlName="role" class="form-control">
+                <option value="Customer">Customer</option>
+                <option value="Seller">Seller</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
+        <button type="submit" class="btn-register">
+          Create Account →
+        </button>
+
+      </form>
+
+      <p class="terms">
+        By continuing, you agree to LuxeCommerce's
+        <a href="#">Terms of Service</a> and
+        <a href="#">Privacy Policy</a>.
+      </p>
+
+    </div>
   </div>
-
 </div>
