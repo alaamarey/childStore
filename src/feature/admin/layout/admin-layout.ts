@@ -8,6 +8,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.css'
 })
+//Layout component for admin pages, includes navigation and logout functionality
 export class AdminLayoutComponent {
 
   fullName = localStorage.getItem('fullName') || 'Admin';
