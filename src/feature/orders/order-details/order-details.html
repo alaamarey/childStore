@@ -1,122 +1,110 @@
 @if (order()) {
-
 <div class="details-container">
 
-  <!-- HEADER -->
-
+  <!-- Header -->
   <div class="top-section">
-
     <div>
-      <h1>
-        Order #{{ order()?.id }}
-      </h1>
-
-      <p>
-        Status:
-        <span class="status">
-          {{ order()?.status }}
-        </span>
-      </p>
+      <h2>Order #{{ order()?.id }}</h2>
+      <p class="detail-date">{{ order()?.createdAt | date:'MMMM d, y, h:mm a' }}</p>
     </div>
-
-    <button class="cancel-btn">
-      Cancel Order
-    </button>
-
+    <div class="header-right">
+      <app-order-status-badge [status]="order()!.status" />
+      @if (order()?.status !== 'Cancelled' && order()?.status !== 'Delivered') {
+        <button class="cancel-btn" (click)="cancel()">Cancel Order</button>
+      }
+    </div>
   </div>
 
-  <!-- TIMELINE -->
-
+  <!-- Timeline -->
   <div class="timeline">
-
-    <div class="step active">
-      <div class="circle"></div>
+    <div class="step" [class.active]="isStepActive('Pending')">
+      <div class="circle">
+        @if (isStepActive('Pending')) { <span>✓</span> }
+      </div>
       <p>Placed</p>
     </div>
-
-    <div class="line"></div>
-
-    <div class="step active">
-      <div class="circle"></div>
+    <div class="line" [class.active]="isStepActive('Processing')"></div>
+    <div class="step" [class.active]="isStepActive('Processing')">
+      <div class="circle">
+        @if (isStepActive('Processing')) { <span>✓</span> }
+      </div>
       <p>Processing</p>
     </div>
-
-    <div class="line"></div>
-
-    <div class="step">
-      <div class="circle"></div>
+    <div class="line" [class.active]="isStepActive('Shipped')"></div>
+    <div class="step" [class.active]="isStepActive('Shipped')">
+      <div class="circle">
+        @if (isStepActive('Shipped')) { <span>✓</span> }
+      </div>
       <p>Shipped</p>
     </div>
-
-    <div class="line"></div>
-
-    <div class="step">
-      <div class="circle"></div>
+    <div class="line" [class.active]="isStepActive('Delivered')"></div>
+    <div class="step" [class.active]="isStepActive('Delivered')">
+      <div class="circle">
+        @if (isStepActive('Delivered')) { <span>✓</span> }
+      </div>
       <p>Delivered</p>
     </div>
-
   </div>
 
-  <!-- INFO CARDS -->
-
+  <!-- Info Cards -->
   <div class="cards">
-
-    <!-- ADDRESS -->
-
     <div class="card">
-
       <h3>Shipping Address</h3>
-
-      <p>
-        {{ order()?.shippingAddress }}
-      </p>
-
+      <p>{{ order()?.shippingAddress }}</p>
     </div>
-
-    <!-- PAYMENT -->
-
     <div class="card">
-
       <h3>Payment Method</h3>
-
-      <p>
-        {{ order()?.paymentMethod }}
-      </p>
-
+      <p>{{ order()?.paymentMethod || 'N/A' }}</p>
     </div>
-
+    @if (order()?.trackingNumber) {
+      <div class="card">
+        <h3>Tracking Number</h3>
+        <p>{{ order()?.trackingNumber }}</p>
+      </div>
+    }
   </div>
 
-  <!-- ORDER SUMMARY -->
+  <!-- Items -->
+  <div class="items-section">
+    <h3>Order Items</h3>
+    <div class="items-list">
+      @for (item of order()?.items; track item.productId) {
+        <div class="item-row">
+          @if (item.imageUrl) {
+            <img [src]="item.imageUrl" [alt]="item.productName" class="item-img">
+          } @else {
+            <div class="item-img-placeholder">📦</div>
+          }
+          <div class="item-info">
+            <p class="item-name">{{ item.productName }}</p>
+            <p class="item-qty">Qty: {{ item.quantity }}</p>
+          </div>
+          <p class="item-price">${{ item.price * item.quantity }}</p>
+        </div>
+      }
+    </div>
+  </div>
 
+  <!-- Summary -->
   <div class="summary">
-
-    <h2>Order Summary</h2>
-
+    <h3>Order Summary</h3>
     <div class="summary-row">
       <span>Subtotal</span>
-
-      <span>
-        ${{ order()?.totalPrice }}
-      </span>
+      <span>${{ order()?.totalPrice }}</span>
     </div>
-
     <div class="summary-row">
       <span>Shipping</span>
-
-      <span>Free</span>
+      <span class="free">Free</span>
     </div>
-
     <div class="summary-row total">
       <span>Total</span>
-
-      <span>
-        ${{ order()?.totalPrice }}
-      </span>
+      <span>${{ order()?.totalPrice }}</span>
     </div>
-
   </div>
 
 </div>
-
+} @else {
+  <div class="no-order">
+    <p>👈 Select an order to view details</p>
+  </div>
 }

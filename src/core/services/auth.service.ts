@@ -33,6 +33,7 @@ export class AuthService {
   setUser(user: User): void {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', user.token);
+      localStorage.setItem('role', user.role);
     this.userSubject.next(user);
   }
 
@@ -48,6 +49,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     this.userSubject.next(null);
   }
 

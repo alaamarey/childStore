@@ -42,16 +42,22 @@ export const routes: Routes = [
   },
 
   {
-    path: 'orders',
-    loadChildren: () =>
-      import('../feature/orders/order.routes').then(m => m.ORDER_ROUTES),
+    path: 'update-profile',
+    loadComponent: () =>
+      import('../feature/auth/update-profile/update-profile').then(m => m.UpdateProfile),
+    canActivate: [authGuard]
   },
 
   {
-    path: 'update-profile',
+    path: 'orders',
+    loadChildren: () =>
+      import('../feature/orders/order.routes').then(m => m.ORDER_ROUTES)
+  },
+
+  {
+    path: 'user-orders',
     loadComponent: () =>
-      import('../feature/auth/update-profile/update-profile')
-        .then(m => m.UpdateProfile),
+      import('../feature/user-orders/user-orders').then(m => m.UserOrdersComponent),
     canActivate: [authGuard]
   },
 
@@ -64,8 +70,7 @@ export const routes: Routes = [
   {
     path: 'payment-success',
     loadComponent: () =>
-      import('../feature/payment-success/payment-success')
-        .then(m => m.PaymentSuccessComponent)
+      import('../feature/payment-success/payment-success').then(m => m.PaymentSuccessComponent)
   },
 
   {
