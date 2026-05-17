@@ -1,0 +1,114 @@
+.login-page {
+  min-height: 100vh;
+  background: #f3f0fa;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+}
+.login-nav .brand { font-weight: 700; font-size: 18px; color: #2d2060; }
+.login-nav a { font-size: 14px; color: #333; text-decoration: none; }
+
+.login-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  padding: 40px;
+}
+
+/* ---- Left ---- */
+.login-left { max-width: 400px; }
+.login-left h1 {
+  font-size: 40px; font-weight: 800;
+  color: #4a3aad; line-height: 1.2; margin-bottom: 16px;
+}
+.login-left p { color: #555; font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+.hero-placeholder {
+  width: 100%; height: 260px; border-radius: 14px;
+  background: linear-gradient(135deg, #c9b6f5, #a87fe8);
+}
+
+/* ---- Card ---- */
+.login-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  width: 380px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+.login-tabs {
+  display: flex;
+  background: #f0edf8;
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 28px;
+}
+.login-tabs .tab {
+  flex: 1; padding: 9px; border: none;
+  border-radius: 6px; font-size: 14px;
+  font-weight: 500; cursor: pointer;
+  background: transparent; color: #666;
+}
+.login-tabs .tab.active { background: #7c5cbf; color: white; }
+
+.login-card h2 { font-size: 24px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+.subtitle { font-size: 13px; color: #888; margin-bottom: 24px; }
+
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; }
+.label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.forgot-link { font-size: 12px; color: #7c5cbf; text-decoration: none; }
+
+.input-wrap { position: relative; }
+.input-wrap .form-control {
+  width: 100%;
+  padding: 11px 14px 11px 38px;
+  border: 1.5px solid #e0daea;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+.input-wrap .form-control:focus { border-color: #7c5cbf; }
+.input-icon {
+  position: absolute; left: 12px;
+  top: 50%; transform: translateY(-50%);
+  color: #aaa; font-size: 14px;
+}
+
+.btn-signin {
+  width: 100%; padding: 13px;
+  background: #5a3fb5; color: white;
+  border: none; border-radius: 8px;
+  font-size: 15px; font-weight: 600;
+  cursor: pointer; margin-top: 4px;
+}
+
+.divider {
+  display: flex; align-items: center;
+  gap: 12px; margin: 18px 0;
+  color: #bbb; font-size: 12px;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: #e8e3f0;
+}
+
+.social-btns { display: flex; gap: 12px; }
+.social-btn {
+  flex: 1; padding: 10px;
+  border: 1.5px solid #e0daea;
+  border-radius: 8px; background: white;
+  font-size: 14px; font-weight: 500;
+  color: #333; cursor: pointer;
+}
+
+.terms { text-align: center; font-size: 11px; color: #aaa; margin-top: 16px; }
+.terms a { color: #7c5cbf; }

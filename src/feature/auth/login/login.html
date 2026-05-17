@@ -1,29 +1,73 @@
-<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+<!-- الصفحة الكاملة: split layout -->
+<div class="login-page">
 
-  <div class="card p-4 shadow-sm"
-       style="width: 380px; border: 1px solid #e6e6e6; border-radius: 12px;">
+  <!-- Navbar -->
+  <nav class="login-nav">
+    <span class="brand">Yalla Shop</span>
+    <a routerLink="/products">← Back to Home</a>
+  </nav>
 
-    <h3 class="text-center mb-4">Login</h3>
+  <!-- المحتوى الرئيسي -->
+  <div class="login-main">
 
-    <form [formGroup]="loginForm" (ngSubmit)="submit()"
-          class="d-flex flex-column gap-3">
+    <!-- الجهة اليسار: النص + الصورة -->
+    <div class="login-left">
+      <h1>Elevate Your<br>Shopping Journey.</h1>
+      <p>Join our curated marketplace where premium products meet seamless experiences. Secure, fast, and elegantly designed for you.</p>
+      <div class="hero-placeholder"></div>
+    </div>
 
-      <input type="email"
-             formControlName="email"
-             placeholder="Email"
-             class="form-control">
+    <!-- الجهة اليمين: الفورم -->
+    <div class="login-card">
 
-      <input type="password"
-             formControlName="password"
-             placeholder="Password"
-             class="form-control">
+      <!-- Tabs (Login / Register) -->
+      <div class="login-tabs">
+        <button class="tab active">Login</button>
+       
+      </div>
 
-      <button type="submit" class="btn btn-primary w-100">
-        Login
-      </button>
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Enter your details to access your account.</p>
 
-    </form>
+      <form [formGroup]="loginForm" (ngSubmit)="submit()"
+            class="login-form">
 
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉</span>
+            <input type="email"
+                   formControlName="email"
+                   placeholder="name@example.com"
+                   class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label-row">
+            <label>Password</label>
+          </div>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password"
+                   formControlName="password"
+                   placeholder="••••••••"
+                   class="form-control">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-signin">
+          Sign In →
+        </button>
+
+      </form>
+
+      <p class="terms">
+        By continuing, you agree to LuxeCommerce's
+        <a href="#">Terms of Service</a> and
+        <a href="#">Privacy Policy</a>.
+      </p>
+
+    </div>
   </div>
-
 </div>
