@@ -1,40 +1,46 @@
-<div class="cart-page" *ngIf="cart; else loadingTpl">
+<!-- Loading state -->
+@if (loading && !cart) {
+<div class="cart-loading">Loading your cart...</div>
+}
 
+<!-- Cart content -->
+@if (cart && !loading) {
+<div class="cart-page">
   <h1 class="cart-title">Your Shopping Cart</h1>
 
-  <div *ngFor="let item of cart?.items" class="cart-item">
-
+  <!-- Empty cart -->
+  @if (cart.items.length === 0) {
+  <div class="empty-cart">
+    <p>Your cart is empty.</p>
+    <a routerLink="/products" class="continue-link">← Continue Shopping</a>
+  </div>
+  } @else {
+  <!-- Cart items list -->
+  @for (item of cart.items; track item.productId) {
+  <div class="cart-item">
     <div class="item-image">
       <img [src]="item.image" [alt]="item.productName">
     </div>
-
     <div class="item-info">
       <div class="item-name">{{ item.productName }}</div>
       <div class="qty-row">
-        <button class="qty-btn" (click)="decreaseQty(item)">−</button>
+        <button class="qty-btn" (click)="decreaseQty(item)" [disabled]="updatingItem">−</button>
         <span class="qty-val">{{ item.quantity }}</span>
-        <button class="qty-btn" (click)="increaseQty(item)">+</button>
+        <button class="qty-btn" (click)="increaseQty(item)" [disabled]="updatingItem">+</button>
       </div>
     </div>
-
     <div class="item-price">{{ item.unitPrice | currency }}</div>
-
-    <button class="delete-btn" (click)="removeItem(item)">✕</button>
-
+    <button class="delete-btn" (click)="removeItem(item)" [disabled]="updatingItem">✕</button>
   </div>
+  }
 
   <a class="continue-link" routerLink="/products">← Continue Shopping</a>
 
-  <!-- SHIPPING -->
+  <!-- Shipping & Payment -->
   <div class="shipping-section">
-
     <label>Shipping Address</label>
-    <input
-      type="text"
-      [(ngModel)]="shippingAddress"
-      placeholder="Enter your shipping address..."
-      class="shipping-input"
-    />
+    <input type="text" [(ngModel)]="shippingAddress" placeholder="Enter your shipping address..."
+      class="shipping-input" />
 
     <label>Payment Method</label>
     <select [(ngModel)]="paymentMethod" class="payment-select">
@@ -42,30 +48,25 @@
       <option [value]="1">Credit Card</option>
       <option [value]="2">Online Payment</option>
     </select>
-
   </div>
 
-  <!-- MESSAGE -->
+  <!-- Message toast -->
   @if (message) {
-    <div class="message" [class.success]="messageType === 'success'" [class.error]="messageType === 'error'">
-      {{ message }}
-    </div>
+  <div class="message" [class.success]="messageType === 'success'" [class.error]="messageType === 'error'">
+    {{ message }}
+  </div>
   }
 
-  <!-- FOOTER -->
+  <!-- Footer total & checkout -->
   <div class="cart-footer">
     <div class="total-box">
       <span class="total-label">Grand Total</span>
       <span class="total-value">{{ getTotalPrice() | currency }}</span>
     </div>
-    <button class="checkout-btn" (click)="checkout()" [disabled]="loading">
+    <button class="checkout-btn" (click)="checkout()" [disabled]="updatingItem || loading">
       {{ loading ? 'Placing Order...' : 'Proceed to Checkout' }}
-      <i class="bi bi-cart-check"></i>
     </button>
   </div>
-
+  }
 </div>
-
-<ng-template #loadingTpl>
-  <p>Loading cart...</p>
-</ng-template>
+}

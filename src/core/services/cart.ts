@@ -11,7 +11,7 @@ export class CartService {
 
   private baseUrl = environment.baseURL + 'Cart';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getMyCart(): Observable<MyCart> {
     return this.http.get<MyCart>(`${this.baseUrl}/MyCart`);
@@ -21,7 +21,7 @@ export class CartService {
     return this.http.post(`${this.baseUrl}/Add`, {
       productId,
       quantity
-    });
+    }, { responseType: 'text' });
   }
 
   deleteItem(cartId: number, productId: number) {
@@ -43,9 +43,9 @@ export class CartService {
   }
 
   removeFromCart(cartId: number, productId: number) {
-  return this.http.delete(
-    `${this.baseUrl}/${cartId}/${productId}`,
-    { responseType: 'text' }
-  );
-}
+    return this.http.delete(
+      `${this.baseUrl}/${cartId}/${productId}`,
+      { responseType: 'text' }
+    );
+  }
 }

@@ -1,12 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../core/models/iproduct';
 import { ProductService } from '../../core/services/ProductService';
-import { ChangeDetectorRef } from '@angular/core';
 import { CartService } from '../../core/services/cart';
-import { MyCart } from '../../core/models/my-cart';
-
 
 @Component({
   selector: 'app-detailed-product',
@@ -16,115 +13,94 @@ import { MyCart } from '../../core/models/my-cart';
   styleUrls: ['./detailed-product.component.css']
 })
 export class DetailedProductComponent implements OnInit {
-
   private cdr = inject(ChangeDetectorRef);
-
   private productService = inject(ProductService);
-
   private activatedRoute = inject(ActivatedRoute);
   private cartService = inject(CartService);
 
   product: Product | null = null;
-
   productId!: number;
 
+  // Quantity selector
+  quantity: number = 1;
+
+  // UI states
+  isAddingToCart = false;
+  notificationMessage: string | null = null;
+  notificationType: 'success' | 'error' = 'success';
+  private notificationTimeout: any;
+
   ngOnInit(): void {
-
     this.getId();
-
   }
-
 
   getId(): void {
-
     this.activatedRoute.paramMap.subscribe({
-
       next: (params) => {
-
-        this.productId = Number(
-          params.get('id')
-        );
-
-        console.log(this.productId);
-
+        this.productId = Number(params.get('id'));
         this.getProductDetails();
-
       },
-
-      error: (err) => {
-
-        console.log(err);
-
-      }
-
+      error: (err) => console.error('Route error:', err)
     });
-
   }
 
-
-
-
-  getProductDetails() {
-
-    this.productService.getProductById(this.productId)
-      .subscribe({
-
-        next: (response) => {
-
-          console.log(response);
-
-          this.product = response;
-
-          this.cdr.detectChanges();
-
-        },
-
-        error: (err) => {
-
-          console.log(err);
-
-        }
-
-      });
-
+  getProductDetails(): void {
+    this.productService.getProductById(this.productId).subscribe({
+      next: (response) => {
+        this.product = response;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Product load error:', err)
+    });
   }
-  
- addToCart(product: any) {
 
-  this.cartService.getMyCart().subscribe({
-    next: (cart) => {
-
-      const existingItem = cart.items.find(
-        (item: any) => item.productId === product.id
-      );
-
-      if (existingItem) {
-
-        this.cartService.updateItem(
-          cart.id,
-          product.id,
-          existingItem.quantity + 1
-        ).subscribe(() => {
-          console.log('Updated quantity');
-        });
-
-      } else {
-
-        this.cartService.addToCart(product.id, 1).subscribe(() => {
-          console.log('Added new item');
-        });
-
-      }
-
+  incrementQuantity(): void {
+    if (this.product && this.quantity < (this.product.stock || 99)) {
+      this.quantity++;
     }
-  });
+  }
 
-}
- 
+  decrementQuantity(): void {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
+  }
 
+  addToCart(): void {
+    if (!this.product) return;
+    if (this.isAddingToCart) return;
 
+    this.isAddingToCart = true;
+    this.cdr.detectChanges();
 
+    this.cartService.addToCart(this.product.id, this.quantity).subscribe({
+      next: () => {
+        this.showNotification(
+          `Added ${this.quantity} × "${this.product!.title}" to cart`,
+          'success'
+        );
+        this.isAddingToCart = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Add to cart error:', err);
+        this.showNotification('Failed to add product. Please try again.', 'error');
+        this.isAddingToCart = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
 
+  private showNotification(message: string, type: 'success' | 'error'): void {
+    if (this.notificationTimeout) clearTimeout(this.notificationTimeout);
 
+    this.notificationMessage = message;
+    this.notificationType = type;
+    this.cdr.detectChanges();
 
+    this.notificationTimeout = setTimeout(() => {
+      this.notificationMessage = null;
+      this.cdr.detectChanges();
+    }, 3000);
+  }
 }

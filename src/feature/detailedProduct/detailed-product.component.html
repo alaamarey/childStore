@@ -1,6 +1,13 @@
 @if(product) {
-
 <div class="product-page">
+
+  <!-- Temporary notification (toast) -->
+  @if(notificationMessage) {
+  <div class="notification" [class.notification-success]="notificationType === 'success'"
+    [class.notification-error]="notificationType === 'error'">
+    {{ notificationMessage }}
+  </div>
+  }
 
   <!-- Breadcrumb -->
   <div class="product-breadcrumb">
@@ -17,7 +24,6 @@
         <img [src]="product.image" class="thumb">
         <img [src]="product.image" class="thumb">
       </div>
-
       <div class="main-image">
         <img [src]="product.image" [alt]="product.title">
       </div>
@@ -25,7 +31,6 @@
 
     <!-- RIGHT: Details -->
     <div class="product-details">
-
       <span class="category-badge">{{ product.category }}</span>
       <h1 class="product-title">{{ product.title }}</h1>
 
@@ -50,46 +55,45 @@
 
       <div class="product-divider"></div>
 
-      <!-- Actions -->
+      <!-- Quantity selector + Add to Cart -->
       <div class="product-actions">
-        <button class="btn-add-cart" (click)="addToCart(product)">
-          Add to Cart
+        <div class="quantity-selector">
+          <button class="qty-btn" (click)="decrementQuantity()" [disabled]="quantity <= 1">−</button>
+          <span class="qty-value">{{ quantity }}</span>
+          <button class="qty-btn" (click)="incrementQuantity()"
+            [disabled]="quantity >= (product.stock || 99)">+</button>
+        </div>
+
+        <button class="btn-add-cart" (click)="addToCart()" [disabled]="isAddingToCart || product.stock === 0">
+          {{ isAddingToCart ? 'Adding...' : 'Add to Cart' }}
         </button>
 
         <button class="btn-wishlist">
           ♡ Add to Wishlist
         </button>
       </div>
-
     </div>
   </div>
 
   <!-- REVIEWS -->
   <div class="reviews-section">
     <h2>Customer Reviews</h2>
-
     <div class="reviews-grid">
       <div class="review-card">
         <div class="review-top">
           <div class="reviewer-avatar">JD</div>
-
           <div>
             <div class="reviewer-name">James Donovan</div>
             <div class="reviewer-sub">Verified Buyer</div>
           </div>
         </div>
-
-        <p class="review-text">
-          "Great product quality and fast delivery."
-        </p>
+        <p class="review-text">"Great product quality and fast delivery."</p>
       </div>
     </div>
   </div>
-
 </div>
-
 } @else {
-  <div class="product-loading">
-    Loading...
-  </div>
+<div class="product-loading">
+  Loading...
+</div>
 }
