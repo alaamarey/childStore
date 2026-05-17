@@ -47,6 +47,8 @@ export class ProductComponent implements OnInit {
       this.maxPrice
     ).subscribe({
       next: (response) => {
+        console.log(response);
+
         this.products = response.data;
         this.totalCount = response.totalCount;
         this.page = response.page;
@@ -89,37 +91,37 @@ export class ProductComponent implements OnInit {
     this.page = 1;          // Reset to first page when filtering
     this.getProducts();
   }
-   addToCart(product: any) {
+  addToCart(product: any) {
 
-  this.cartService.getMyCart().subscribe({
-    next: (cart) => {
+    this.cartService.getMyCart().subscribe({
+      next: (cart) => {
 
-      const existingItem = cart.items.find(
-        (item: any) => item.productId === product.id
-      );
+        const existingItem = cart.items.find(
+          (item: any) => item.productId === product.id
+        );
 
-      if (existingItem) {
+        if (existingItem) {
 
-        this.cartService.updateItem(
-          cart.id,
-          product.id,
-          existingItem.quantity + 1
-        ).subscribe(() => {
-          console.log('Updated quantity');
-        });
+          this.cartService.updateItem(
+            cart.id,
+            product.id,
+            existingItem.quantity + 1
+          ).subscribe(() => {
+            console.log('Updated quantity');
+          });
 
-      } else {
+        } else {
 
-        this.cartService.addToCart(product.id, 1).subscribe(() => {
-          console.log('Added new item');
-        });
+          this.cartService.addToCart(product.id, 1).subscribe(() => {
+            console.log('Added new item');
+          });
+
+        }
 
       }
+    });
 
-    }
-  });
-
-}
   }
+}
 
 

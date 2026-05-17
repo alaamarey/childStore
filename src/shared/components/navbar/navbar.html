@@ -7,8 +7,8 @@
       Products
     </a>
 
-    <a class="nav-link fw-semibold" routerLink="/cart">
-      Cart
+    <a class="nav-link fw-semibold" routerLink="/categories">
+      Categories
     </a>
 
     <a class="nav-link fw-semibold" routerLink="/orders">
@@ -22,7 +22,7 @@
 
     <!-- NOT LOGGED IN -->
     <ng-container *ngIf="!(user$ | async)">
-      
+
       <a class="nav-link text-primary fw-semibold" routerLink="/login">
         Login
       </a>
@@ -37,9 +37,9 @@
 
     <!-- LOGGED IN -->
     <ng-container *ngIf="user$ | async as user">
-<a class="nav-link position-relative" routerLink="/cart" routerLinkActive="active">
-                        🛒 Cart
-                    </a>
+      <a class="nav-link position-relative" routerLink="/cart" routerLinkActive="active">
+        🛒 Cart
+      </a>
       <a class="nav-link fs-5" routerLink="/profile">👤</a>
       <span class="nav-link fw-semibold text-dark">
         {{ user.fullName }}

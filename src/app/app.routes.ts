@@ -13,6 +13,7 @@ import { AdminLayoutComponent } from '../feature/admin/layout/admin-layout';
 export const routes: Routes = [
 
   { path: '', redirectTo: 'products', pathMatch: 'full' },
+
   { path: 'products', component: ProductComponent },
   { path: 'details/:id', component: DetailedProductComponent },
   { path: 'add-product', component: AddProductComponent },
@@ -49,7 +50,8 @@ export const routes: Routes = [
   {
     path: 'update-profile',
     loadComponent: () =>
-      import('../feature/auth/update-profile/update-profile').then(m => m.UpdateProfile),
+      import('../feature/auth/update-profile/update-profile')
+        .then(m => m.UpdateProfile),
     canActivate: [authGuard]
   },
 
@@ -62,7 +64,8 @@ export const routes: Routes = [
   {
     path: 'payment-success',
     loadComponent: () =>
-      import('../feature/payment-success/payment-success').then(m => m.PaymentSuccessComponent)
+      import('../feature/payment-success/payment-success')
+        .then(m => m.PaymentSuccessComponent)
   },
 
   {
