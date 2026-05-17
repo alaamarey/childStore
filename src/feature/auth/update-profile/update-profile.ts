@@ -12,7 +12,8 @@ import { Router, RouterLink } from '@angular/router';
   selector: 'app-update-profile',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule , RouterLink],
-  templateUrl: './update-profile.html'
+  templateUrl: './update-profile.html',
+  styleUrl: './update-profile.css'
 })
 export class UpdateProfile {
 

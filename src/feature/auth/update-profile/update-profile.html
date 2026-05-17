@@ -1,36 +1,60 @@
-<div class="container mt-5">
+<div class="update-profile-page">
+  <div class="update-profile-card">
 
-    <div class="card shadow-sm p-4 mx-auto"
-         style="max-width: 600px; border:1px solid #e6e6e6; border-radius:14px;">
-
-        <h3 class="text-center mb-4">Update Profile</h3>
-
-        <form [formGroup]="profileForm"
-              (ngSubmit)="submit()"
-              class="d-flex flex-column gap-3">
-
-            <input class="form-control"
-                   formControlName="fullName"
-                   placeholder="Full Name">
-
-            <input class="form-control"
-                   formControlName="address"
-                   placeholder="Address">
-
-            <input class="form-control"
-                   formControlName="phoneNumber"
-                   placeholder="Phone Number">
-
-            <input class="form-control"
-                   formControlName="paymentDetails"
-                   placeholder="Payment Details">
-
-            <button class="btn btn-primary w-100" type="submit">
-                Save Changes
-            </button>
-
-        </form>
-
+    <!-- Header -->
+    <div class="profile-header">
+      <div class="profile-avatar">✏️</div>
+      <h2>Update Profile</h2>
+      <span class="profile-badge">Edit Your Details</span>
     </div>
 
+    <form [formGroup]="profileForm" (ngSubmit)="submit()">
+
+      <div class="profile-field-input">
+        <label>👤 Full Name</label>
+        <div class="input-wrap">
+          <span class="input-icon">👤</span>
+          <input class="form-control"
+                 formControlName="fullName"
+                 placeholder="Full Name">
+        </div>
+      </div>
+
+      <div class="profile-field-input">
+        <label>📍 Address</label>
+        <div class="input-wrap">
+          <span class="input-icon">📍</span>
+          <input class="form-control"
+                 formControlName="address"
+                 placeholder="Address">
+        </div>
+      </div>
+
+      <div class="profile-field-input">
+        <label>📞 Phone Number</label>
+        <div class="input-wrap">
+          <span class="input-icon">📞</span>
+          <input class="form-control"
+                 formControlName="phoneNumber"
+                 placeholder="Phone Number">
+        </div>
+      </div>
+
+      <div class="profile-field-input">
+        <label>💳 Payment Details</label>
+        <div class="input-wrap">
+          <span class="input-icon">💳</span>
+          <input class="form-control"
+                 formControlName="paymentDetails"
+                 placeholder="Payment Details">
+        </div>
+      </div>
+
+      <button class="btn-save-profile" type="submit">
+        💾 Save Changes
+      </button>
+
+    </form>
+
+  </div>
 </div>
