@@ -1,57 +1,84 @@
-<div class="container">
+<div class="products-page">
 
-    <h1>Products</h1>
+  <!-- Sidebar: Filters -->
+  <aside class="products-sidebar">
 
-    <!-- FILTERS -->
-    <div class="filters">
-        <input type="text" placeholder="Search..." [(ngModel)]="search">
-        <input type="number" placeholder="Min Price" [(ngModel)]="minPrice">
-        <input type="number" placeholder="Max Price" [(ngModel)]="maxPrice">
-        <button (click)="applyFilters()">Search</button>
+    <!-- Search + Price (موجودين في الكود) -->
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search..." [(ngModel)]="search">
     </div>
 
-    <!-- LOADING & ERROR -->
+    <div class="price-row">
+      <input type="number" placeholder="Min Price" [(ngModel)]="minPrice">
+      <input type="number" placeholder="Max Price" [(ngModel)]="maxPrice">
+    </div>
+
+    <button class="btn-apply-filters" (click)="applyFilters()">Search</button>
+
+  </aside>
+
+  <!-- Main Content -->
+  <div class="products-main">
+
+    <div class="main-header">
+      <h1>Products</h1>
+    </div>
+
+    <!-- Loading -->
     @if (loading) {
-    <div class="loading">Loading products...</div>
+      <div class="state-msg loading-msg">Loading products...</div>
     }
+
+    <!-- Error -->
     @if (errorMessage) {
-    <div class="error">{{ errorMessage }}</div>
+      <div class="state-msg error-msg">{{ errorMessage }}</div>
     }
 
-    <!-- PRODUCTS GRID -->
+    <!-- Empty -->
     @if (!loading && products.length === 0 && !errorMessage) {
-    <div class="no-products">No products found.</div>
+      <div class="state-msg no-products">No products found.</div>
     }
+
+    <!-- Products Grid -->
     <div class="products-grid">
-        @for(product of products; track product.id) {
-        <div class="card">
-            <div [routerLink]="['/details', product.id]" class="cursor-pointer">
-                <img [src]="product.image" [alt]="product.title">
-                <h3>{{ product.title }}</h3>
-                <p class="price">$ {{ product.price }}</p>
-                <p>{{ product.description }}</p>
-                <div class="details">
-                    <span>⭐ {{ product.rate }}</span>
-                </div>
+      @for (product of products; track product.id) {
+        <div class="product-card">
+
+          <!-- Clickable: image + info -->
+          <div [routerLink]="['/details', product.id]" class="product-link">
+            <div class="product-img-wrap">
+              <img [src]="product.image" [alt]="product.title" class="product-img">
             </div>
-            <div class="category cursor-pointer">
-                <a (click)="addToCart(product)"> Add to Cart</a>
+            <div class="product-body">
+              <div class="product-title-row">
+                <span class="product-name">{{ product.title }}</span>
+                <span class="product-rate">⭐ {{ product.rate }}</span>
+              </div>
+              <p class="product-desc">{{ product.description }}</p>
+              <p class="product-price">${{ product.price }}</p>
             </div>
-          
+          </div>
+
+          <!-- Add to Cart -->
+          <div class="product-footer">
+            <button class="btn-add-cart" (click)="addToCart(product)">
+              Add to Cart
+            </button>
+          </div>
+
         </div>
-        }
+      }
     </div>
 
-    <!-- PAGINATION CONTROLS -->
+    <!-- Pagination -->
     @if (totalPages > 1 && !loading) {
-    <div class="pagination">
-        <button (click)="previousPage()" [disabled]="page == 1">
-            Prev
-        </button>
-        <span>Page {{ page }} of {{ totalPages }}</span>
-        <button (click)="nextPage()" [disabled]="page == totalPages">
-            Next
-        </button>
-    </div>
+      <div class="pagination">
+        <button class="page-btn arrow" (click)="previousPage()" [disabled]="page == 1">‹</button>
+        <span class="page-info">Page {{ page }} of {{ totalPages }}</span>
+        <button class="page-btn arrow" (click)="nextPage()" [disabled]="page == totalPages">›</button>
+      </div>
     }
+
+  </div>
 </div>
