@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../core/models/iproduct';
 import { ProductService } from '../../core/services/ProductService';
 import { ChangeDetectorRef } from '@angular/core';
+import { CartService } from '../../core/services/cart';
+import { MyCart } from '../../core/models/my-cart';
 
 
 @Component({
@@ -20,6 +22,7 @@ export class DetailedProductComponent implements OnInit {
   private productService = inject(ProductService);
 
   private activatedRoute = inject(ActivatedRoute);
+  private cartService = inject(CartService);
 
   product: Product | null = null;
 
@@ -85,6 +88,39 @@ export class DetailedProductComponent implements OnInit {
       });
 
   }
+  
+ addToCart(product: any) {
+
+  this.cartService.getMyCart().subscribe({
+    next: (cart) => {
+
+      const existingItem = cart.items.find(
+        (item: any) => item.productId === product.id
+      );
+
+      if (existingItem) {
+
+        this.cartService.updateItem(
+          cart.id,
+          product.id,
+          existingItem.quantity + 1
+        ).subscribe(() => {
+          console.log('Updated quantity');
+        });
+
+      } else {
+
+        this.cartService.addToCart(product.id, 1).subscribe(() => {
+          console.log('Added new item');
+        });
+
+      }
+
+    }
+  });
+
+}
+ 
 
 
 

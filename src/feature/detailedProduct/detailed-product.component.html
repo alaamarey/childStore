@@ -1,111 +1,95 @@
-@if(product){
+@if(product) {
 
-<div class="page">
+<div class="product-page">
 
-    <!-- breadcrumb -->
-    <div class="breadcrumb">
-        Home / {{ product.category }} / {{ product.title }}
+  <!-- Breadcrumb -->
+  <div class="product-breadcrumb">
+    Home / {{ product.category }} / <span>{{ product.title }}</span>
+  </div>
+
+  <!-- TOP SECTION -->
+  <div class="top-section">
+
+    <!-- LEFT: Images -->
+    <div class="product-images">
+      <div class="thumbnails">
+        <img [src]="product.image" class="thumb active">
+        <img [src]="product.image" class="thumb">
+        <img [src]="product.image" class="thumb">
+      </div>
+
+      <div class="main-image">
+        <img [src]="product.image" [alt]="product.title">
+      </div>
     </div>
 
-    <!-- TOP SECTION -->
-    <div class="top-section">
+    <!-- RIGHT: Details -->
+    <div class="product-details">
 
-        <!-- LEFT: images -->
-        <div class="images">
+      <span class="category-badge">{{ product.category }}</span>
+      <h1 class="product-title">{{ product.title }}</h1>
 
-            <div class="thumbnails">
-                <img [src]="product.image" class="thumb active">
-                <img [src]="product.image" class="thumb">
-                <img [src]="product.image" class="thumb">
-            </div>
+      <div class="product-rating">
+        <span class="stars">⭐⭐⭐⭐⭐</span>
+        <span>{{ product.rate }} ({{ product.ratingCount }} reviews)</span>
+      </div>
 
-            <div class="main-image">
-                <img [src]="product.image">
-            </div>
+      <div class="product-price">
+        ${{ product.price }}
+      </div>
 
-        </div>
+      <div class="product-stock" [class.low]="product.stock < 10">
+        {{ product.stock > 0 ? '✅ In Stock - Ready to ship' : '❌ Out of Stock' }}
+      </div>
 
-        <!-- RIGHT: details -->
-        <div class="details">
+      <div class="product-divider"></div>
 
-            <span class="category">{{ product.category }}</span>
+      <p class="product-desc">
+        {{ product.description }}
+      </p>
 
-            <h1 class="title">{{ product.title }}</h1>
+      <div class="product-divider"></div>
 
-            <div class="rating">
-                ⭐ {{ product.rate }} ({{ product.ratingCount }} reviews)
-            </div>
+      <!-- Actions -->
+      <div class="product-actions">
+        <button class="btn-add-cart" (click)="addToCart(product)">
+          Add to Cart
+        </button>
 
-            <div class="price">
-                ${{ product.price }}
-            </div>
-
-            <div class="stock" [class.low]="product.stock < 10">
-                {{ product.stock > 0 ? 'In Stock' : 'Out of Stock' }}
-            </div>
-
-            <p class="desc">
-                {{ product.description }}
-            </p>
-
-            <!-- quantity -->
-            <div class="quantity">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-            </div>
-
-            <!-- buttons -->
-            <div class="actions">
-                <button class="add">Add to Cart</button>
-                <button class="wish">♡ Wishlist</button>
-            </div>
-
-        </div>
+        <button class="btn-wishlist">
+          ♡ Add to Wishlist
+        </button>
+      </div>
 
     </div>
+  </div>
 
-    <!-- REVIEWS -->
-    <div class="reviews">
+  <!-- REVIEWS -->
+  <div class="reviews-section">
+    <h2>Customer Reviews</h2>
 
-        <h2>Customer Reviews</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-top">
+          <div class="reviewer-avatar">JD</div>
 
-        <div class="review-card">
-            <div class="user">JD</div>
-            <div>
-                <h4>James Donovan</h4>
-                <p>Great product quality and fast delivery.</p>
-            </div>
+          <div>
+            <div class="reviewer-name">James Donovan</div>
+            <div class="reviewer-sub">Verified Buyer</div>
+          </div>
         </div>
 
+        <p class="review-text">
+          "Great product quality and fast delivery."
+        </p>
+      </div>
     </div>
-
-    <!-- RELATED -->
-    <div class="related">
-
-        <h2>You May Also Like</h2>
-
-        <div class="grid">
-
-            <div class="card">
-                <img [src]="product.image">
-                <h4>Similar Product</h4>
-                <p>$99</p>
-            </div>
-
-            <div class="card">
-                <img [src]="product.image">
-                <h4>Another Product</h4>
-                <p>$120</p>
-            </div>
-
-        </div>
-
-    </div>
+  </div>
 
 </div>
 
-}
-@else {
-<div class="loading">Loading...</div>
+} @else {
+  <div class="product-loading">
+    Loading...
+  </div>
 }
