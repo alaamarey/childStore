@@ -8,7 +8,8 @@ import { filter } from 'rxjs';
   selector: 'app-profile',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './profile.html'
+  templateUrl: './profile.html',
+  styleUrl: './profile.css'
 })
 export class ProfileComponent implements OnInit {
 

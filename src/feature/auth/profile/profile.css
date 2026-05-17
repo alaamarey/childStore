@@ -1,0 +1,110 @@
+.profile-page {
+  min-height: 100vh;
+  background: #f3f0fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 16px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+}
+
+/* Header */
+.profile-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9b6f5, #7c5cbf);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  font-size: 32px;
+  color: white;
+}
+
+.profile-header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 6px;
+}
+
+.profile-badge {
+  font-size: 12px;
+  color: #7c5cbf;
+  background: #f0edf8;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* Fields */
+.profile-field {
+  padding: 16px 0;
+  border-bottom: 1px solid #f0edf8;
+}
+
+.profile-field:last-of-type {
+  border-bottom: none;
+}
+
+.profile-field label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.profile-field p {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.profile-field p.empty {
+  color: #ccc;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Button */
+.btn-update-profile {
+  width: 100%;
+  padding: 13px;
+  background: #5a3fb5;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.btn-update-profile:hover {
+  background: #4a2fa5;
+}
