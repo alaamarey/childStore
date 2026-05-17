@@ -1,0 +1,148 @@
+<div class="admin-orders">
+
+  <div class="page-header">
+    <div>
+      <h1>All Orders</h1>
+      <p>Manage and update order statuses</p>
+    </div>
+  </div>
+
+  @if (ordersService.isLoading()) {
+    <div class="loading">Loading orders...</div>
+  }
+
+  @if (!ordersService.isLoading() && ordersService.orders().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">📦</div>
+      <h3>No Orders Yet</h3>
+      <p>Orders will appear here once customers start purchasing.</p>
+    </div>
+  }
+
+  @if (ordersService.orders().length > 0) {
+    <div class="orders-layout">
+
+      <!-- SIDEBAR -->
+      <div class="orders-sidebar">
+        <p class="orders-count">{{ ordersService.orders().length }} Orders</p>
+
+        @for (order of ordersService.orders(); track order.id) {
+          <div
+            class="order-card"
+            [class.active]="selectedOrderId === order.id"
+            (click)="selectOrder(order.id)"
+          >
+            <div class="card-top">
+              <span class="order-id">Order #{{ order.id }}</span>
+              <span class="status-badge" [ngClass]="order.status.toLowerCase()">
+                {{ order.status }}
+              </span>
+            </div>
+            <div class="card-date">{{ order.createdAt | date:'MMM d, y' }}</div>
+            <div class="card-price">${{ order.totalPrice }}</div>
+          </div>
+        }
+      </div>
+
+      <!-- DETAILS -->
+      @if (selectedOrder()) {
+        <div class="order-details">
+
+          <!-- HEADER -->
+          <div class="details-header">
+            <div>
+              <h2>Order Details: #{{ selectedOrder()!.id }}</h2>
+              <p>Placed on {{ selectedOrder()!.createdAt | date:'MMMM d, y' }}</p>
+            </div>
+            <div class="header-actions">
+              <select
+                [value]="selectedOrder()!.status"
+                (change)="changeStatus(selectedOrder()!.id, $event)"
+                class="status-select"
+              >
+                <option value="Pending">Pending</option>
+                <option value="Processing">Processing</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- TIMELINE -->
+          <div class="timeline">
+            <div class="step" [class.active]="isStepActive('Pending')">
+              <div class="circle">✓</div>
+              <p>Order Placed</p>
+            </div>
+            <div class="line" [class.active]="isStepActive('Processing')"></div>
+            <div class="step" [class.active]="isStepActive('Processing')">
+              <div class="circle">🚚</div>
+              <p>Processing</p>
+            </div>
+            <div class="line" [class.active]="isStepActive('Shipped')"></div>
+            <div class="step" [class.active]="isStepActive('Shipped')">
+              <div class="circle">📦</div>
+              <p>Shipped</p>
+            </div>
+            <div class="line" [class.active]="isStepActive('Delivered')"></div>
+            <div class="step" [class.active]="isStepActive('Delivered')">
+              <div class="circle">🏠</div>
+              <p>Delivered</p>
+            </div>
+          </div>
+
+          <!-- INFO CARDS -->
+          <div class="info-cards">
+            <div class="info-card">
+              <div class="info-label">📍 SHIPPING ADDRESS</div>
+              <p>{{ selectedOrder()!.shippingAddress }}</p>
+            </div>
+            <div class="info-card">
+              <div class="info-label">💳 PAYMENT METHOD</div>
+              <p>{{ selectedOrder()!.paymentMethod || 'N/A' }}</p>
+            </div>
+          </div>
+
+          <!-- ITEMS -->
+         @if (selectedOrder()?.items && selectedOrder()!.items.length > 0) {
+            <div class="order-summary">
+              <h3>Order Summary ({{ selectedOrder()!.items.length }} Items)</h3>
+              @for (item of selectedOrder()!.items; track item.productId) {
+                <div class="order-item">
+                  @if (item.imageUrl) {
+                    <img [src]="item.imageUrl" [alt]="item.productName" />
+                  } @else {
+                    <div class="item-placeholder">🛍</div>
+                  }
+                  <div class="item-info">
+                    <h4>{{ item.productName }}</h4>
+                    <p>Qty: {{ item.quantity }}</p>
+                  </div>
+                  <div class="item-price">${{ item.price }}</div>
+                </div>
+              }
+              <div class="summary-totals">
+                <div class="summary-row">
+                  <span>Subtotal</span>
+                  <span>${{ selectedOrder()!.totalPrice }}</span>
+                </div>
+                <div class="summary-row">
+                  <span>Shipping</span>
+                  <span class="free">Free</span>
+                </div>
+                <div class="summary-row total">
+                  <span>Total</span>
+                  <span>${{ selectedOrder()!.totalPrice }}</span>
+                </div>
+              </div>
+            </div>
+          }
+
+        </div>
+      }
+
+    </div>
+  }
+
+</div>

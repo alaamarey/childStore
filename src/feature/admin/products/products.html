@@ -1,0 +1,154 @@
+<div class="products-page">
+
+  <!-- Header -->
+  <div class="page-header">
+
+    <div class="header-text">
+      <p class="page-label"></p>
+
+      <h1>Products</h1>
+
+      <p class="page-subtitle">
+        Manage all products inside the store
+      </p>
+    </div>
+
+    <div class="header-actions">
+
+      <span class="stat-pill">
+        <span class="dot"></span>
+        {{ products.length }} Products
+      </span>
+
+      <button class="add-btn" (click)="openAdd()">
+
+        <svg width="16" height="16" viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round">
+
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+
+        </svg>
+
+        Add Product
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Grid -->
+  <div class="products-grid">
+
+    @for (product of products; track product.id; let i = $index) {
+
+      <div
+        class="product-card"
+        [style.animation-delay]="(i * 0.06) + 's'"
+      >
+
+        <!-- Image -->
+        <div class="card-image-wrap">
+
+          <img
+            [src]="product.image"
+            [alt]="product.title"
+          >
+
+          <span class="category-badge">
+            Cat #{{ product.categoryId }}
+          </span>
+
+        </div>
+
+        <!-- Info -->
+        <div class="product-info">
+
+          <h3 class="product-title">
+            {{ product.title }}
+          </h3>
+
+          <p class="product-desc">
+            {{ product.description }}
+          </p>
+
+          <!-- Rating -->
+          <div class="rating-row">
+
+            <div class="stars">
+
+              @for (star of getStars(product.rate); track $index) {
+                <span [class]="star">★</span>
+              }
+
+            </div>
+
+            <span class="rating-count">
+              ({{ product.ratingCount }})
+            </span>
+
+          </div>
+
+          <!-- Price -->
+          <div class="price-row">
+
+            <span class="price">
+              ${{ product.price }}
+            </span>
+
+            <span
+              class="stock"
+              [class.low]="product.stock < 10"
+            >
+              {{ product.stock }} in stock
+            </span>
+
+          </div>
+
+          <!-- Actions -->
+          <div class="card-actions">
+
+            <button
+              class="action-btn edit-btn"
+              (click)="openEdit(product)"
+            >
+              Edit
+            </button>
+
+            <button
+              class="action-btn delete-btn"
+              (click)="delete(product.id)"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>
+
+<!-- Modal -->
+@if (modalService.showModal()) {
+
+  <div
+    class="overlay show"
+    (mousedown)="modalService.closeOnBackdrop($event)"
+  >
+
+    <div class="modal">
+      <app-product-modal />
+    </div>
+
+  </div>
+
+}

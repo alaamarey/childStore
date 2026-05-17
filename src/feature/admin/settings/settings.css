@@ -1,0 +1,160 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.settings-page {
+  font-family: 'Segoe UI', sans-serif;
+  padding-bottom: 2rem;
+}
+
+/* Header */
+.page-header { margin-bottom: 2.5rem; }
+
+.page-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #9ca3af;
+  margin-bottom: 4px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+
+.page-subtitle { font-size: 14px; color: #6b7280; }
+
+/* Grid */
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* Card entrance animation */
+@keyframes cardEntrance {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spinIcon {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.settings-card {
+  background: white;
+  border-radius: 18px;
+  border: 0.5px solid rgba(124, 58, 237, 0.12);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  opacity: 0;
+  animation: cardEntrance 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+
+.settings-card:nth-child(1) { animation-delay: 0.05s; }
+.settings-card:nth-child(2) { animation-delay: 0.15s; }
+.settings-card:nth-child(3) { animation-delay: 0.25s; }
+.settings-card:nth-child(4) { animation-delay: 0.35s; }
+
+.settings-card:hover {
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.10);
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(124, 58, 237, 0.22);
+}
+
+/* Card top row */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Icon wrap — spin on hover */
+.card-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon-wrap svg {
+  transition: none;
+}
+
+.settings-card:hover .card-icon-wrap svg {
+  animation: spinIcon 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.purple-wrap { background: #EEEDFE; color: #534AB7; }
+.blue-wrap   { background: #E6F1FB; color: #185FA5; }
+.green-wrap  { background: #EAF3DE; color: #3B6D11; }
+.amber-wrap  { background: #FAEEDA; color: #854F0B; }
+
+/* Tag badge */
+.card-tag {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #9ca3af;
+  background: #f3f0ff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.settings-card:hover .card-tag {
+  background: #EEEDFE;
+  color: #534AB7;
+}
+
+/* Text */
+.settings-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+
+.settings-card p {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+/* Buttons */
+.settings-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 20px;
+  border-radius: 10px;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: opacity 0.15s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.settings-btn svg {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.settings-btn:hover svg { transform: translateX(4px); }
+.settings-btn:active    { transform: scale(0.96); }
+
+.purple-btn { background: #7F77DD; color: white; }
+.blue-btn   { background: #185FA5; color: white; }
+.green-btn  { background: #3B6D11; color: white; }
+.amber-btn  { background: #854F0B; color: white; }

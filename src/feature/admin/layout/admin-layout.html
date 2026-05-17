@@ -1,0 +1,94 @@
+<div class="admin-layout">
+
+  <aside class="sidebar">
+
+    <div class="sidebar-brand">
+      <div class="brand-icon">Y</div>
+      <div>
+        <h1>YALLA</h1>
+        <p>Manage your store</p>
+      </div>
+    </div>
+
+    <nav>
+      <a routerLink="/admin/dashboard" routerLinkActive="active">
+        <span class="nav-icon">⊞</span>
+        Dashboard
+      </a>
+      <a routerLink="/admin/stats" routerLinkActive="active">
+        <span class="nav-icon">↗</span>
+        Statistics
+      </a>
+      <a routerLink="/admin/orders" routerLinkActive="active">
+        <span class="nav-icon">◎</span>
+        Orders
+      </a>
+      <a routerLink="/admin/products" routerLinkActive="active">
+        <span class="nav-icon">▦</span>
+        Products
+      </a>
+      <a routerLink="/admin/users" routerLinkActive="active">
+        <span class="nav-icon">◉</span>
+        Users
+      </a>
+      <a routerLink="/admin/settings" routerLinkActive="active">
+        <span class="nav-icon">⚙</span>
+        Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="support-btn">
+        <span>?</span>
+        Support
+      </button>
+    </div>
+
+  </aside>
+
+  <div class="main-wrapper">
+
+    <header class="topbar">
+      <div class="topbar-brand">YALLA</div>
+      <div class="topbar-search">
+        <span class="search-icon">⌕</span>
+        <input type="text" placeholder="Search resources...">
+      </div>
+      <div class="topbar-actions">
+        <button class="notif-btn">🔔</button>
+        <div class="user-chip">
+          <div class="user-avatar">{{ fullName.charAt(0) }}</div>
+          <span>{{ fullName }}</span>
+        </div>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+
+    <footer class="admin-footer">
+      <div class="footer-brand">
+        <h3>YALLA</h3>
+        <p>The premium administrative dashboard for managing high-end commerce ecosystems.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <div class="footer-links">
+        <h4>Status</h4>
+        <span class="status-ok">● All systems operational</span>
+      </div>
+    </footer>
+
+  </div>
+
+</div>

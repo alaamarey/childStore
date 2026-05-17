@@ -1,0 +1,71 @@
+<!-- src/app/feature/admin/pending-sellers/pending-sellers.html -->
+
+<div class="pending-page">
+
+  <div class="header">
+
+    <div>
+
+      <h1>
+        Pending Sellers
+      </h1>
+
+      <p>
+        Review seller applications
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="seller-grid">
+
+    @for (
+      seller of sellers;
+      track seller.id
+    ) {
+
+      <div class="seller-card">
+
+        <div class="avatar">
+
+          {{
+            seller.fullName
+            ?.charAt(0)
+          }}
+
+        </div>
+
+        <h3>
+          {{ seller.fullName }}
+        </h3>
+
+        <p>
+          {{ seller.email }}
+        </p>
+
+        <div class="actions">
+
+          <button
+            class="approve-btn"
+            (click)="approve(seller.id)"
+          >
+            Approve
+          </button>
+
+          <button
+            class="reject-btn"
+            (click)="reject(seller.id)"
+          >
+            Reject
+          </button>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

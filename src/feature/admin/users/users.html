@@ -1,0 +1,333 @@
+<div class="users-page">
+
+  <!-- ── Header ── -->
+  <div class="page-header">
+    <div class="header-text">
+      <p class="page-label"></p>
+      <h1>Users</h1>
+      <p class="page-subtitle">Manage all customers, admins and sellers</p>
+    </div>
+
+    <div class="header-actions">
+      <div class="stats-pills">
+        <span class="stat-pill">
+          <span class="dot dot-green"></span>
+          {{ totalCount }} Total
+        </span>
+
+        <span class="stat-pill">
+          <span class="dot dot-green"></span>
+          {{ onlineCount }} Online
+        </span>
+
+        <span class="stat-pill">
+          <span class="dot dot-gray"></span>
+          {{ offlineCount }} Offline
+        </span>
+      </div>
+
+      <button class="add-btn" (click)="openAdd()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+
+        Add User
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Online Users ── -->
+  @if (onlineUsers.length) {
+
+    <div class="users-grid">
+
+      @for (user of onlineUsers; track user.id; let i = $index) {
+
+        <div
+          class="user-card"
+          [class.pending]="!user.isApproved"
+          [style.animation-delay]="(i * 0.06) + 's'"
+        >
+
+          <!-- Card Top -->
+          <div class="card-top">
+
+            <div class="avatar-wrap">
+              <div class="avatar">
+                {{ user.fullName.charAt(0).toUpperCase() }}
+              </div>
+
+              <span class="status-dot online"></span>
+            </div>
+
+            <span
+              class="role-badge"
+              [ngClass]="roleClass(user.roles[0])"
+            >
+              {{ user.roles[0] }}
+            </span>
+
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+
+            <h3 class="user-name">
+              {{ user.fullName }}
+            </h3>
+
+            <p class="user-email">
+              {{ user.email }}
+            </p>
+
+            <div class="user-phone">
+
+              <svg width="13" height="13" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round">
+
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2
+                  19.79 19.79 0 0 1-8.63-3.07
+                  19.5 19.5 0 0 1-6.5-6.5
+                  19.79 19.79 0 0 1-3.07-8.63
+                  A2 2 0 0 1 3.6 1h3
+                  a2 2 0 0 1 2 1.72
+                  12.84 12.84 0 0 0 .7 2.81
+                  2 2 0 0 1-.45 2.11L7.91 8.6
+                  a16 16 0 0 0 5.49 5.49
+                  l.95-.95a2 2 0 0 1 2.11-.45
+                  12.84 12.84 0 0 0 2.81.7
+                  A2 2 0 0 1 22 16.92z"/>
+              </svg>
+
+              {{ user.phoneNumber || 'No Phone' }}
+            </div>
+
+          </div>
+
+          <!-- Footer -->
+          <div class="card-footer">
+
+            <span
+              class="status-badge"
+              [class.approved]="user.isApproved"
+            >
+              {{ user.isApproved ? 'Approved' : 'Pending' }}
+            </span>
+
+            <div class="card-actions">
+
+              @if (!user.isApproved) {
+
+                <button
+                  class="action-btn approve-btn"
+                  (click)="approve(user.id)"
+                >
+                  ✓
+                </button>
+
+              }
+
+            <button
+  class="action-btn edit-btn"
+  (click)="openEdit(user)"
+  title="Edit"
+>
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+  </svg>
+</button>
+
+<button
+  class="action-btn delete-btn"
+  (click)="delete(user.id)"
+  title="Delete"
+>
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <polyline points="3 6 5 6 21 6"/>
+    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+    <path d="M10 11v6"/>
+    <path d="M14 11v6"/>
+  </svg>
+</button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+  }
+
+  <!-- ── Offline Users ── -->
+  @if (offlineUsers.length) {
+
+    <div class="group-label" style="margin-top:2rem;">
+      <span class="dot dot-gray"></span>
+      Offline — {{ offlineUsers.length }}
+    </div>
+
+    <div class="users-grid">
+
+      @for (user of offlineUsers; track user.id; let i = $index) {
+
+        <div
+          class="user-card"
+          [class.pending]="!user.isApproved"
+          [style.animation-delay]="(i * 0.06) + 's'"
+        >
+
+          <!-- Card Top -->
+          <div class="card-top">
+
+            <div class="avatar-wrap">
+              <div class="avatar">
+                {{ user.fullName.charAt(0).toUpperCase() }}
+              </div>
+
+              <span class="status-dot offline"></span>
+            </div>
+
+            <span
+              class="role-badge"
+              [ngClass]="roleClass(user.roles[0])"
+            >
+              {{ user.roles[0] }}
+            </span>
+
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+
+            <h3 class="user-name">
+              {{ user.fullName }}
+            </h3>
+
+            <p class="user-email">
+              {{ user.email }}
+            </p>
+
+            <div class="user-phone">
+              {{ user.phoneNumber || 'No Phone' }}
+            </div>
+
+          </div>
+
+          <!-- Footer -->
+          <div class="card-footer">
+
+            <span
+              class="status-badge"
+              [class.approved]="user.isApproved"
+            >
+              {{ user.isApproved ? 'Approved' : 'Pending' }}
+            </span>
+
+            <div class="card-actions">
+
+              @if (!user.isApproved) {
+
+                <button
+                  class="action-btn approve-btn"
+                  (click)="approve(user.id)"
+                >
+                  ✓
+                </button>
+
+              }
+
+             <button
+  class="action-btn edit-btn"
+  (click)="openEdit(user)"
+  title="Edit"
+>
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+  </svg>
+</button>
+
+<button
+  class="action-btn delete-btn"
+  (click)="delete(user.id)"
+  title="Delete"
+>
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <polyline points="3 6 5 6 21 6"/>
+    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+    <path d="M10 11v6"/>
+    <path d="M14 11v6"/>
+  </svg>
+</button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+  }
+
+</div>
+
+<!-- Modal -->
+@if (modalService.showModal()) {
+
+  <div
+    class="overlay show"
+    (mousedown)="modalService.closeOnBackdrop($event)"
+  >
+
+    <div class="modal">
+      <app-user-modal />
+    </div>
+
+  </div>
+
+}

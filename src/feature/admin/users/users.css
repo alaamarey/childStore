@@ -1,0 +1,400 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.users-page {
+  font-family: 'Segoe UI', sans-serif;
+  padding-bottom: 2rem;
+}
+
+/* ── Header ── */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.page-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #9ca3af;
+  margin-bottom: 4px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+
+.page-subtitle { font-size: 13px; color: #6b7280; }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stats-pills {
+  display: flex;
+  gap: 8px;
+}
+
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 0.5px solid rgba(124, 58, 237, 0.15);
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #534AB7;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.dot-green  { background: #16a34a; }
+.dot-gray   { background: #9ca3af; }
+
+.add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.add-btn:hover  { background: #6d28d9; transform: translateY(-1px); }
+.add-btn:active { transform: scale(0.97); }
+
+/* ── Grid ── */
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* ── Card entrance ── */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+.user-card {
+  background: white;
+  border-radius: 20px;
+  border: 0.5px solid rgba(124, 58, 237, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  opacity: 0;
+  animation: cardIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.user-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.user-card:hover::before { opacity: 1; }
+
+.user-card:hover {
+  box-shadow: 0 10px 36px rgba(124, 58, 237, 0.12);
+  transform: translateY(-3px);
+  border-color: rgba(124, 58, 237, 0.2);
+}
+
+.user-card.pending {
+  border-color: rgba(245, 158, 11, 0.2);
+  background: #fffbf0;
+}
+
+.user-card.pending::before {
+  background: linear-gradient(90deg, #f59e0b, #fcd34d);
+}
+
+/* ── Card Top ── */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.avatar-wrap { position: relative; display: inline-block; }
+
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+}
+
+/* ── Online / Offline status dot ── */
+.status-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: #9ca3af;
+}
+
+.status-dot.online  { background: #16a34a; }
+.status-dot.offline { background: #9ca3af; }
+
+/* ── Role badges ── */
+.role-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+.role-admin    { background: #EEEDFE; color: #3C3489; }
+.role-customer { background: #E6F1FB; color: #0C447C; }
+.role-seller   { background: #EAF3DE; color: #27500A; }
+
+/* ── Card Body ── */
+.card-body { display: flex; flex-direction: column; gap: 4px; }
+
+.user-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.user-email {
+  font-size: 12px;
+  color: #9ca3af;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-phone {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.user-phone svg { color: #a78bfa; flex-shrink: 0; }
+
+/* ── Card Footer ── */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 0.5px solid #f3f0ff;
+}
+
+.status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.card-actions { display: flex; gap: 8px; }
+
+/* ── Action buttons ── */
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.action-btn:hover { transform: scale(1.1); filter: brightness(0.9); }
+
+.approve-btn { background: #dcfce7; color: #16a34a; }
+.edit-btn    { background: #ede9fe; color: #7c3aed; }
+.delete-btn  { background: #fee2e2; color: #dc2626; }
+
+/* ── Modal Overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;        /* ← رفعناه من 1000 لـ 9999 */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── Modal Box ── */
+.modal {
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  width: 380px;
+  max-width: 90vw;
+  transform: translateY(20px);
+  transition: transform 0.25s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.overlay.show .modal { transform: translateY(0); }
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #9ca3af;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.close-btn:hover { color: #1a1a2e; }
+
+/* ── Modal Form ── */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group { display: flex; flex-direction: column; }
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.form-input,
+.form-select {
+  padding: 9px 12px;
+  border: 0.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #1a1a2e;
+  background: #fafafa;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+/* ── Modal Actions ── */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.cancel-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0.5px solid #e5e7eb;
+  background: #f9fafb;
+  color: #6b7280;
+  transition: background 0.2s;
+}
+
+.cancel-btn:hover { background: #f3f4f6; }
+
+.save-btn {
+  flex: 2;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: #7c3aed;
+  color: white;
+  transition: background 0.2s;
+}
+
+.save-btn:hover { background: #6d28d9; }
+
+.group-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 12px;
+  padding-left: 4px;
+}

@@ -1,0 +1,78 @@
+<!-- src/app/feature/admin/banners/banners.html -->
+
+<div class="banners-page">
+
+  <div class="header">
+
+    <h1>
+      Banner Management
+    </h1>
+
+    <p>
+      Create and manage home banners
+    </p>
+
+  </div>
+
+  <!-- CREATE -->
+
+  <div class="create-banner">
+
+    <input
+      type="text"
+      [(ngModel)]="title"
+      placeholder="Banner title"
+    >
+
+    <input
+      type="text"
+      [(ngModel)]="imageUrl"
+      placeholder="Image URL"
+    >
+
+    <button
+      (click)="createBanner()"
+    >
+      Create Banner
+    </button>
+
+  </div>
+
+  <!-- LIST -->
+
+  <div class="banner-grid">
+
+    @for (
+      banner of adminService.banners();
+      track banner.id
+    ) {
+
+      <div class="banner-card">
+
+        <img
+          [src]="banner.imageUrl"
+          alt="banner"
+        >
+
+        <div class="banner-info">
+
+          <h3>
+            {{ banner.title }}
+          </h3>
+
+          <button
+            class="delete-btn"
+            (click)="deleteBanner(banner.id)"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

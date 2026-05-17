@@ -1,0 +1,104 @@
+<div class="stats-page">
+
+  <div class="page-header">
+    <p class="page-label">Overview</p>
+    <h1>Statistics</h1>
+    <p class="page-subtitle">Store performance at a glance</p>
+  </div>
+
+  <div class="metric-grid">
+
+    <div class="metric-card">
+      <p class="metric-label">Total Users</p>
+      <p class="metric-value purple">{{ adminService.stats()?.totalUsers || 0 }}</p>
+      <p class="metric-sub"><span class="trend-up">↑</span> +3 this week</p>
+    </div>
+
+    <div class="metric-card">
+      <p class="metric-label">Total Products</p>
+      <p class="metric-value blue">{{ adminService.stats()?.totalProducts || 0 }}</p>
+      <p class="metric-sub"><span class="trend-up">↑</span> +5 this month</p>
+    </div>
+
+    <div class="metric-card">
+      <p class="metric-label">Total Orders</p>
+      <p class="metric-value green">{{ adminService.stats()?.totalOrders || 0 }}</p>
+      <p class="metric-sub">2 pending</p>
+    </div>
+
+    <div class="metric-card">
+      <p class="metric-label">Total Revenue</p>
+      <p class="metric-value amber">${{ adminService.stats()?.totalRevenue || 0 }}</p>
+      <p class="metric-sub"><span class="trend-up">↑</span> +12% vs last month</p>
+    </div>
+
+  </div>
+
+  <div class="charts-row">
+
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <p class="chart-title">Monthly Revenue</p>
+        <span class="chart-badge">Last 6 months</span>
+      </div>
+      <div class="legend">
+        <span class="legend-dot purple-dot"></span>
+        <span class="legend-text">Revenue ($)</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas #revenueChart></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <p class="chart-title">User Growth</p>
+        <span class="chart-badge">Last 6 months</span>
+      </div>
+      <div class="legend">
+        <span class="legend-dot blue-dot"></span>
+        <span class="legend-text">Users</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas #usersChart></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="charts-row">
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <p class="chart-title">Order Status</p>
+        <span class="chart-badge">Current breakdown</span>
+      </div>
+      <div class="legend">
+        <span class="legend-dot green-dot"></span><span class="legend-text">Delivered 50%</span>
+        <span class="legend-dot amber-dot"></span><span class="legend-text">Pending 25%</span>
+        <span class="legend-dot purple-dot"></span><span class="legend-text">Processing 25%</span>
+      </div>
+      <div class="chart-wrap donut-wrap">
+        <canvas #ordersChart></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <p class="chart-title">Products by Category</p>
+        <span class="chart-badge">{{ adminService.stats()?.totalProducts || 0 }} total</span>
+      </div>
+      <div class="legend">
+        <span class="legend-dot blue-dot"></span><span class="legend-text">Electronics</span>
+        <span class="legend-dot green-dot"></span><span class="legend-text">Clothing</span>
+        <span class="legend-dot amber-dot"></span><span class="legend-text">Home</span>
+        <span class="legend-dot gray-dot"></span><span class="legend-text">Other</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas #productsChart></canvas>
+      </div>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,138 @@
+<div class="dashboard">
+
+  <div class="page-header">
+    <h1>Management Hub </h1>
+    <p>Administer user accounts and verify new seller registrations.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active">Customer Management</button>
+    <button class="tab">
+      Seller Approvals
+      <span class="badge">{{ adminService.pendingSellers().length }}</span>
+    </button>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <div class="stat-icon purple">👥</div>
+      <div class="stat-info">
+        <p>Total Users</p>
+        <h2>{{ adminService.users().length }}</h2>
+      </div>
+      <span class="stat-badge up">↗ Active</span>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon blue">🏪</div>
+      <div class="stat-info">
+        <p>Pending Sellers</p>
+        <h2>{{ adminService.pendingSellers().length }}</h2>
+      </div>
+      <span class="stat-badge live">Live Now</span>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon red">📦</div>
+      <div class="stat-info">
+        <p>Total Products</p>
+        <h2>{{ adminService.products().length }}</h2>
+      </div>
+      <span class="stat-dot">●</span>
+    </div>
+
+  </div>
+
+  <!-- PENDING SELLERS -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Pending Seller Approvals</h2>
+    </div>
+
+    @if (adminService.pendingSellers().length === 0) {
+      <div class="empty-sellers">
+        <span>✓</span>
+        <p>No pending seller approvals</p>
+      </div>
+    }
+
+    <div class="seller-grid">
+      @for (seller of adminService.pendingSellers(); track seller.id) {
+        <div class="seller-card">
+          <div class="seller-top">
+            <div class="seller-icon">🛍</div>
+            <div>
+              <h3>{{ seller.fullName }}</h3>
+              <p>{{ seller.email }}</p>
+            </div>
+          </div>
+          <div class="seller-meta">
+            <div><span>Business Email:</span> {{ seller.email }}</div>
+            <div><span>Phone:</span> {{ seller.phoneNumber }}</div>
+          </div>
+          <div class="seller-actions">
+            <button class="approve-btn"
+              (click)="adminService.approveSeller(seller.id).subscribe()">
+              ✓ Approve
+            </button>
+            <button class="reject-btn"
+              (click)="adminService.rejectSeller(seller.id).subscribe()">
+              ✕ Reject
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- USERS TABLE -->
+  <div class="section">
+    <div class="section-header">
+      <h2>User Management</h2>
+     
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of adminService.users(); track user.id) {
+            <tr>
+              <td>
+                <div class="user-info">
+                  <div class="avatar">{{ user.fullName.charAt(0) }}</div>
+                  <div>
+                    <h4>{{ user.fullName }}</h4>
+                    <p>{{ user.email }}</p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="status" [class.active]="user.isApproved">
+                  {{ user.isApproved ? 'ACTIVE' : 'PENDING' }}
+                </span>
+              </td>
+              <td>{{ user.roles[0] }}</td>
+              <td>
+                <button class="delete-btn"
+                  (click)="adminService.deleteUser(user.id).subscribe()">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
